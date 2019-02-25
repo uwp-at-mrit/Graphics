@@ -50,4 +50,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)transformation.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)turtle.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory).gitattributes" />
+    <None Include="$(MSBuildThisFileDirectory).gitignore" />
+  </ItemGroup>
 </Project>

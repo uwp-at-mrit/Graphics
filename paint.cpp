@@ -26,7 +26,7 @@ GradientStops^ WarGrey::SCADA::make_gradient_stops(CanvasSolidColorBrush^ brushe
 	CanvasGradientStop* stops = new CanvasGradientStop[total];
 	auto flstep = 1.0F / float(total - 1);
 
-	for (int i = 0; i < total; i++) {
+	for (size_t i = 0; i < total; i++) {
 		stops[i].Position = float(i) * flstep;
 		stops[i].Color = brushes[i]->Color;
 	}
@@ -37,7 +37,7 @@ GradientStops^ WarGrey::SCADA::make_gradient_stops(CanvasSolidColorBrush^ brushe
 GradientStops^ WarGrey::SCADA::make_gradient_stops(CanvasSolidColorBrush^ brushes[], float positions[], size_t total) {
 	CanvasGradientStop* stops = new CanvasGradientStop[total];
 	
-	for (int i = 0; i < total; i++) {
+	for (size_t i = 0; i < total; i++) {
 		stops[i].Position = positions[i];
 		stops[i].Color = brushes[i]->Color;
 	}
@@ -49,7 +49,7 @@ GradientStops^ WarGrey::SCADA::make_gradient_stops(Color colors[], size_t total)
 	CanvasGradientStop* stops = new CanvasGradientStop[total];
 	auto flstep = 1.0F / float(total - 1);
 
-	for (int i = 0; i < total; i++) {
+	for (size_t i = 0; i < total; i++) {
 		stops[i].Position = float(i) * flstep;
 		stops[i].Color = colors[i];
 	}
@@ -60,7 +60,7 @@ GradientStops^ WarGrey::SCADA::make_gradient_stops(Color colors[], size_t total)
 GradientStops^ WarGrey::SCADA::make_gradient_stops(Color colors[], float positions[], size_t total) {
 	CanvasGradientStop* stops = new CanvasGradientStop[total];
 	
-	for (int i = 0; i < total; i++) {
+	for (size_t i = 0; i < total; i++) {
 		stops[i].Position = positions[i];
 		stops[i].Color = colors[i];
 	}
@@ -72,7 +72,7 @@ GradientStops^ WarGrey::SCADA::make_gradient_stops(unsigned int hexes[], size_t 
 	CanvasGradientStop* stops = new CanvasGradientStop[total];
 	auto flstep = 1.0F / float(total - 1);
 
-	for (int i = 0; i < total; i++) {
+	for (size_t i = 0; i < total; i++) {
 		stops[i].Position = float(i) * flstep;
 		stops[i].Color = rgba(hexes[i]);
 	}
@@ -83,7 +83,7 @@ GradientStops^ WarGrey::SCADA::make_gradient_stops(unsigned int hexes[], size_t 
 GradientStops^ WarGrey::SCADA::make_gradient_stops(unsigned int hexes[], float positions[], size_t total) {
 	CanvasGradientStop* stops = new CanvasGradientStop[total];
 	
-	for (int i = 0; i < total; i++) {
+	for (size_t i = 0; i < total; i++) {
 		stops[i].Position = positions[i];
 		stops[i].Color = rgba(hexes[i]);
 	}
