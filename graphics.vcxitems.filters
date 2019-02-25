@@ -53,8 +53,4 @@
       <UniqueIdentifier>{8ba30d35-7d01-4708-8f5f-48e855a98083}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory).gitattributes" />
-    <None Include="$(MSBuildThisFileDirectory).gitignore" />
-  </ItemGroup>
 </Project>
