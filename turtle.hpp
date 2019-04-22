@@ -3,9 +3,10 @@
 #include <complex>
 #include <unordered_map>
 
-#include "enum.hpp"
+#include "datum/enum.hpp"
+#include "datum/object.hpp"
+
 #include "shape.hpp"
-#include "object.hpp"
 
 namespace WarGrey::SCADA {
 	private class ITurtle abstract : public WarGrey::SCADA::SharedObject {

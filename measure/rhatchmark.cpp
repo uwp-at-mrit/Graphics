@@ -2,10 +2,10 @@
 
 #include "measure/rhatchmark.hpp"
 
-#include "box.hpp"
-#include "text.hpp"
-#include "string.hpp"
+#include "datum/box.hpp"
+#include "datum/string.hpp"
 
+#include "text.hpp"
 #include "math.hpp"
 #include "shape.hpp"
 #include "paint.hpp"

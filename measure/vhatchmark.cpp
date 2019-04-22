@@ -2,13 +2,14 @@
 
 #include "measure/vhatchmark.hpp"
 
-#include "box.hpp"
+#include "datum/box.hpp"
+#include "datum/string.hpp"
+
 #include "text.hpp"
 #include "shape.hpp"
 #include "paint.hpp"
 #include "geometry.hpp"
 
-#include "string.hpp"
 
 using namespace WarGrey::SCADA;
 

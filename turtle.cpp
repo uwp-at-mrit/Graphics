@@ -2,7 +2,8 @@
 
 #include "turtle.hpp"
 
-#include "box.hpp"
+#include "datum/box.hpp"
+
 #include "shape.hpp"
 #include "paint.hpp"
 #include "geometry.hpp"
