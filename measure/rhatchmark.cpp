@@ -57,10 +57,10 @@ static CanvasGeometry^ make_rhatch(RHatchMarkMetrics* metrics, float radius, dou
 }
 
 static unsigned int resolve_step(float radius, double degrees0, double degreesn, double vmin, double vmax, float em, unsigned int precision) {
-	double range = (vmax - vmin) * std::pow(10.0, precision + 2);
+	double range = (vmax - vmin) * pow(10.0, precision + 2);
 	double arclength = arc_length(radius, degrees0, degreesn);
 	double available_height = double(arclength - em);
-	unsigned int max_fxstep = ((unsigned int)(std::floor(available_height / (double(em) * 1.618))));
+	unsigned int max_fxstep = ((unsigned int)(floor(available_height / (double(em) * 1.618))));
 	unsigned int fxstep = 2;
 
 	for (unsigned int step = max_fxstep; step > 2; step--) {
@@ -138,10 +138,10 @@ CanvasGeometry^ WarGrey::SCADA::rhatchmark(float radius, double degrees0, double
 		circle_point(radius, degreesn - interval * double(i), &mcx, &mcy);
 		hatchmark = geometry_union(hatchmark, p, mcx - half_width, mcy - half_height);
 
-		metrics.label_lx = std::fminf(metrics.label_lx, mcx - half_width + te.lspace);
-		metrics.label_rx = std::fmaxf(metrics.label_rx, mcx + half_width - te.rspace);
-		metrics.label_ty = std::fminf(metrics.label_ty, mcy - half_height + te.tspace);
-		metrics.label_by = std::fmaxf(metrics.label_by, mcy + half_height - te.bspace);
+		metrics.label_lx = fminf(metrics.label_lx, mcx - half_width + te.lspace);
+		metrics.label_rx = fmaxf(metrics.label_rx, mcx + half_width - te.rspace);
+		metrics.label_ty = fminf(metrics.label_ty, mcy - half_height + te.tspace);
+		metrics.label_by = fmaxf(metrics.label_by, mcy + half_height - te.bspace);
 	}
 
 	SET_BOX(maybe_metrics, metrics);

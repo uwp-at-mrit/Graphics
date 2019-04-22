@@ -157,7 +157,7 @@ CanvasGeometry^ WarGrey::SCADA::omega(double sdegrees, float radius, float th, C
 CanvasGeometry^ WarGrey::SCADA::omega(float cx, float cy, double sdegrees, float radius, float th, CanvasStrokeStyle^ style, float extent) {
 	auto omega_path = ref new CanvasPathBuilder(CanvasDevice::GetSharedDevice());
 	double edegrees = sdegrees + 180.0;
-	float ext_radius = std::fmaxf(radius, (extent < 0.0F) ? (-extent * radius) : extent);
+	float ext_radius = fmaxf(radius, (extent < 0.0F) ? (-extent * radius) : extent);
 	float rstart = degrees_to_radians(sdegrees);
 	float rsweep = degrees_to_radians(edegrees - sdegrees);
 	float startx, starty, ext_sx, ext_sy, ext_ex, ext_ey;

@@ -102,8 +102,8 @@ static CanvasGeometry^ make_hbhatch(HHatchMarkMetrics* metrics, float interval, 
 }
 
 static unsigned int resolve_step(double vmin, double vmax, float width, float lspace, float rspace, unsigned int precision) {
-	double range = (vmax - vmin) * std::pow(10.0, precision + 2);
-	unsigned int max_fxstep = ((unsigned int)(std::floor(double(width) / double(lspace + rspace))));
+	double range = (vmax - vmin) * pow(10.0, precision + 2);
+	unsigned int max_fxstep = ((unsigned int)(floor(double(width) / double(lspace + rspace))));
 	unsigned int fxstep = 2;
 
 	for (unsigned int step = max_fxstep; step > 2; step--) {

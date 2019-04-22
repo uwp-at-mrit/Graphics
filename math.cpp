@@ -18,7 +18,7 @@ float WarGrey::SCADA::viewport_fit_scaling(Size& src_size, float target_width, f
 }
 
 float WarGrey::SCADA::viewport_fit_scaling(float src_width, float src_height, float target_width, float target_height) {
-	return std::fmin(src_width / target_width, src_height / target_height);
+	return fminf(src_width / target_width, src_height / target_height);
 }
 
 double WarGrey::SCADA::radians_to_degrees(double radians) {
@@ -54,7 +54,7 @@ double WarGrey::SCADA::points_angle(float2& pt1, float2& pt2) {
 }
 
 double WarGrey::SCADA::points_angle(float x1, float y1, float x2, float y2) {
-	return radians_to_degrees(std::atan2(double(y2 - y1), double(x2 - x1)));
+	return radians_to_degrees(atan2(double(y2 - y1), double(x2 - x1)));
 }
 
 double WarGrey::SCADA::arc_length(float r, double deg0, double degn) {
@@ -70,7 +70,7 @@ double WarGrey::SCADA::circle_perimeter(float r) {
 double WarGrey::SCADA::ellipse_perimeter(float a, float b) {
 	return (a == b)
 		? 2.0 * M_PI * a
-		: M_PI * (3.0F * (a + b) - std::sqrt((3.0 * a + b) * (a + 3.0 * b)));
+		: M_PI * (3.0F * (a + b) - sqrt((3.0 * a + b) * (a + 3.0 * b)));
 }
 
 void WarGrey::SCADA::circle_point(float radius, double degrees, float* x, float* y) {
