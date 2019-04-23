@@ -1,7 +1,6 @@
-#define _USE_MATH_DEFINES
-#include <WindowsNumerics.h>
+#include "datum/box.hpp"
+#include "datum/flonum.hpp"
 
-#include "box.hpp"
 #include "math.hpp"
 
 using namespace WarGrey::SCADA;
@@ -10,7 +9,7 @@ using namespace Windows::Foundation;
 using namespace Windows::Foundation::Numerics;
 
 inline static float quick_degrees_to_radians(double degrees) {
-	return float(degrees * M_PI / 180.0);
+	return float(degrees * pi / 180.0);
 }
 
 float WarGrey::SCADA::viewport_fit_scaling(Size& src_size, float target_width, float target_height) {
@@ -18,11 +17,11 @@ float WarGrey::SCADA::viewport_fit_scaling(Size& src_size, float target_width, f
 }
 
 float WarGrey::SCADA::viewport_fit_scaling(float src_width, float src_height, float target_width, float target_height) {
-	return fminf(src_width / target_width, src_height / target_height);
+	return flmin(src_width / target_width, src_height / target_height);
 }
 
 double WarGrey::SCADA::radians_to_degrees(double radians) {
-	return (radians / M_PI) * 180.0;
+	return (radians / pi) * 180.0;
 }
 
 float WarGrey::SCADA::degrees_to_radians(double degrees) {
@@ -39,7 +38,7 @@ double WarGrey::SCADA::degrees_normalize(double degrees, double degrees_start) {
 }
 
 float WarGrey::SCADA::radians_normalize(float radians, double degrees_start) {
-	float double_pi = float(M_PI * 2.0);
+	float double_pi = pi_f * 2.0f;
 	float radians_start = quick_degrees_to_radians(degrees_start);
 	float radians_end = radians_start + double_pi;
 
@@ -54,23 +53,23 @@ double WarGrey::SCADA::points_angle(float2& pt1, float2& pt2) {
 }
 
 double WarGrey::SCADA::points_angle(float x1, float y1, float x2, float y2) {
-	return radians_to_degrees(atan2(double(y2 - y1), double(x2 - x1)));
+	return radians_to_degrees(flatan(double(y2 - y1), double(x2 - x1)));
 }
 
 double WarGrey::SCADA::arc_length(float r, double deg0, double degn) {
-	double theta = std::abs(degn - deg0);
+	double theta = flabs(degn - deg0);
 
-	return (theta >= 360.0) ? circle_perimeter(r) :  (M_PI * r * theta / 180.0);
+	return (theta >= 360.0) ? circle_perimeter(r) :  (pi * r * theta / 180.0);
 }
 
 double WarGrey::SCADA::circle_perimeter(float r) {
-	return 2 * M_PI * r;
+	return 2.0 * pi * double(r);
 }
 
 double WarGrey::SCADA::ellipse_perimeter(float a, float b) {
 	return (a == b)
-		? 2.0 * M_PI * a
-		: M_PI * (3.0F * (a + b) - sqrt((3.0 * a + b) * (a + 3.0 * b)));
+		? 2.0 * pi * a
+		: pi * (3.0F * (a + b) - flsqrt((3.0 * a + b) * (a + 3.0 * b)));
 }
 
 void WarGrey::SCADA::circle_point(float radius, double degrees, float* x, float* y) {
@@ -78,8 +77,8 @@ void WarGrey::SCADA::circle_point(float radius, double degrees, float* x, float*
 }
 
 void WarGrey::SCADA::circle_point(float radius, float radians, float* x, float* y) {
-	SET_BOX(x, radius * cosf(radians));
-	SET_BOX(y, radius * sinf(radians));
+	SET_BOX(x, radius * flcos(radians));
+	SET_BOX(y, radius * flsin(radians));
 }
 
 void WarGrey::SCADA::ellipse_point(float radiusX, float radiusY, double degrees, float* x, float* y) {
@@ -87,8 +86,8 @@ void WarGrey::SCADA::ellipse_point(float radiusX, float radiusY, double degrees,
 }
 
 void WarGrey::SCADA::ellipse_point(float radiusX, float radiusY, float radians, float* x, float* y) {
-	SET_BOX(x, radiusX * cosf(radians));
-	SET_BOX(y, radiusY * sinf(radians));
+	SET_BOX(x, radiusX * flcos(radians));
+	SET_BOX(y, radiusY * flsin(radians));
 }
 
 void WarGrey::SCADA::line_point(float x0, float y0, float x1, float y1, double ratio, float* x, float* y) {

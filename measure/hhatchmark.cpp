@@ -1,14 +1,13 @@
-#include <algorithm>
-
 #include "measure/hhatchmark.hpp"
 
-#include "box.hpp"
+#include "datum/box.hpp"
+#include "datum/string.hpp"
+#include "datum/flonum.hpp"
+
 #include "text.hpp"
 #include "shape.hpp"
 #include "paint.hpp"
 #include "geometry.hpp"
-
-#include "string.hpp"
 
 using namespace WarGrey::SCADA;
 
@@ -102,8 +101,8 @@ static CanvasGeometry^ make_hbhatch(HHatchMarkMetrics* metrics, float interval, 
 }
 
 static unsigned int resolve_step(double vmin, double vmax, float width, float lspace, float rspace, unsigned int precision) {
-	double range = (vmax - vmin) * pow(10.0, precision + 2);
-	unsigned int max_fxstep = ((unsigned int)(floor(double(width) / double(lspace + rspace))));
+	double range = (vmax - vmin) * flexpt(10.0, double(precision + 2));
+	unsigned int max_fxstep = ((unsigned int)(flfloor(double(width) / double(lspace + rspace))));
 	unsigned int fxstep = 2;
 
 	for (unsigned int step = max_fxstep; step > 2; step--) {

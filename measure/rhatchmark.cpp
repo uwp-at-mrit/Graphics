@@ -1,9 +1,8 @@
-#include <algorithm>
-
 #include "measure/rhatchmark.hpp"
 
 #include "datum/box.hpp"
 #include "datum/string.hpp"
+#include "datum/flonum.hpp"
 
 #include "text.hpp"
 #include "math.hpp"
@@ -57,10 +56,10 @@ static CanvasGeometry^ make_rhatch(RHatchMarkMetrics* metrics, float radius, dou
 }
 
 static unsigned int resolve_step(float radius, double degrees0, double degreesn, double vmin, double vmax, float em, unsigned int precision) {
-	double range = (vmax - vmin) * pow(10.0, precision + 2);
+	double range = (vmax - vmin) * flexpt(10.0, double(precision + 2));
 	double arclength = arc_length(radius, degrees0, degreesn);
 	double available_height = double(arclength - em);
-	unsigned int max_fxstep = ((unsigned int)(floor(available_height / (double(em) * 1.618))));
+	unsigned int max_fxstep = ((unsigned int)(flfloor(available_height / (double(em) * 1.618))));
 	unsigned int fxstep = 2;
 
 	for (unsigned int step = max_fxstep; step > 2; step--) {

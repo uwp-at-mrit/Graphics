@@ -1,11 +1,10 @@
-#include <algorithm>
-
 #include "math.hpp"
 #include "shape.hpp"
 #include "polar.hpp"
 #include "transformation.hpp"
 
-#include "box.hpp"
+#include "datum/box.hpp"
+#include "datum/flonum.hpp"
 
 using namespace WarGrey::SCADA;
 
@@ -292,7 +291,7 @@ CanvasGeometry^ WarGrey::SCADA::polar_masked_rectangle(float rx, float ry, doubl
 
 CanvasGeometry^ WarGrey::SCADA::polar_trapezoid(float r, float ubase, double rotation, float* height) {
 	auto trapezoid = ref new CanvasPathBuilder(CanvasDevice::GetSharedDevice());
-	double alpha_radians = acos(ubase * 0.5F / r);
+	double alpha_radians = flacos(ubase * 0.5F / r);
 	double alpha_degrees = radians_to_degrees(alpha_radians);
 	float sbx, sby, ebx, eby, sux, suy, eux, euy;
 
@@ -308,7 +307,7 @@ CanvasGeometry^ WarGrey::SCADA::polar_trapezoid(float r, float ubase, double rot
 	trapezoid->AddLine(sbx, sby);
 	trapezoid->EndFigure(CanvasFigureLoop::Closed);
 
-	SET_BOX(height, r * float(sin(alpha_radians)));
+	SET_BOX(height, r * float(flsin(alpha_radians)));
 
 	return CanvasGeometry::CreatePath(trapezoid);
 }
