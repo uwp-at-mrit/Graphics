@@ -1,7 +1,7 @@
-#define _USE_MATH_DEFINES
 #include <WindowsNumerics.h>
 
 #include "transformation.hpp"
+#include "datum/flonum.hpp"
 
 using namespace Windows::Foundation::Numerics;
 
@@ -24,5 +24,5 @@ float3x2 WarGrey::SCADA::make_rotation_matrix(float radians, float cx, float cy,
 }
 
 float3x2 WarGrey::SCADA::make_rotation_matrix(double degrees, float cx, float cy, float tx, float ty) {
-	return make_rotation_matrix(float(degrees * M_PI / 180.0), cx, cy, tx, ty);
+	return make_rotation_matrix(float(degrees * pi / 180.0), cx, cy, tx, ty);
 }
