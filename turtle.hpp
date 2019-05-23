@@ -14,6 +14,7 @@ namespace WarGrey::SCADA {
 		void clear();
 		void wipe();
 		void fill_stepsize(float* xstep, float* ystep);
+		Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ snap_path();
 		Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ snap_track(float thickness = 1.0F,
 			Microsoft::Graphics::Canvas::Geometry::CanvasStrokeStyle^ style = nullptr);
 

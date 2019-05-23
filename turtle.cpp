@@ -96,12 +96,12 @@ CanvasGeometry^ ITurtle::subtrack(unsigned int a1, unsigned int a2, float thickn
 	return geometry_intersect(this->snap_track(thickness, style), rectangle(x - poff, y - poff, w + sext, h + sext));
 }
 
-CanvasGeometry^ ITurtle::snap_track(float thickness, CanvasStrokeStyle^ style) {
+CanvasGeometry^ ITurtle::snap_path() {
 	// WARNING: `CanvasGeometry::CreatePath` will close the track leaving it unavailable for future use.
 	if ((this->snapshot == nullptr) || this->moved) {
 		this->track->EndFigure(CanvasFigureLoop::Open);
 		auto the_track = CanvasGeometry::CreatePath(this->track);
-		
+
 		if (this->snapshot == nullptr) {
 			this->snapshot = the_track;
 		} else {
@@ -111,7 +111,11 @@ CanvasGeometry^ ITurtle::snap_track(float thickness, CanvasStrokeStyle^ style) {
 		this->do_rebuild();
 	}
 
-	return geometry_stroke(this->snapshot, thickness, style);
+	return this->snapshot;
+}
+
+CanvasGeometry^ ITurtle::snap_track(float thickness, CanvasStrokeStyle^ style) {
+	return geometry_stroke(this->snap_path(), thickness, style);
 }
 
 /*************************************************************************************************/
