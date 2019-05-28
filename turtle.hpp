@@ -9,6 +9,8 @@
 #include "shape.hpp"
 
 namespace WarGrey::SCADA {
+	private enum class GreenTurtleAnchor { Home, _ };
+
 	private class ITurtle abstract : public WarGrey::SCADA::SharedObject {
 	public:
 		void clear();
@@ -545,4 +547,6 @@ namespace WarGrey::SCADA {
 	protected:
 		virtual ~Turtle() noexcept {}
 	};
+
+	typedef WarGrey::SCADA::Turtle<GreenTurtleAnchor> GreenTurtle;
 }
