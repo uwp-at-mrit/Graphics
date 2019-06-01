@@ -159,26 +159,42 @@ void ITurtle::jump_left(float step, unsigned int a_id) {
 }
 
 void ITurtle::jump_up_right(float step, unsigned int a_id) {
-	this->x += (this->xstepsize * step);
-	this->y -= (this->ystepsize * step);
-	this->do_jump(a_id);
+	this->jump_up_right(step, step, a_id);
 }
 
 void ITurtle::jump_right_down(float step, unsigned int a_id) {
-	this->x += (this->xstepsize * step);
-	this->y += (this->ystepsize * step);
-	this->do_jump(a_id);
+	this->jump_right_down(step, step, a_id);
 }
 
 void ITurtle::jump_down_left(float step, unsigned int a_id) {
-	this->x -= (this->xstepsize * step);
-	this->y += (this->ystepsize * step);
-	this->do_jump(a_id);
+	this->jump_down_left(step, step, a_id);
 }
 
 void ITurtle::jump_left_up(float step, unsigned int a_id) {
-	this->x -= (this->xstepsize * step);
-	this->y -= (this->ystepsize * step);
+	this->jump_left_up(step, step, a_id);
+}
+
+void ITurtle::jump_up_right(float xstep, float ystep, unsigned int a_id) {
+	this->x += (this->xstepsize * xstep);
+	this->y -= (this->ystepsize * ystep);
+	this->do_jump(a_id);
+}
+
+void ITurtle::jump_right_down(float xstep, float ystep, unsigned int a_id) {
+	this->x += (this->xstepsize * xstep);
+	this->y += (this->ystepsize * ystep);
+	this->do_jump(a_id);
+}
+
+void ITurtle::jump_down_left(float xstep, float ystep, unsigned int a_id) {
+	this->x -= (this->xstepsize * xstep);
+	this->y += (this->ystepsize * ystep);
+	this->do_jump(a_id);
+}
+
+void ITurtle::jump_left_up(float xstep, float ystep, unsigned int a_id) {
+	this->x -= (this->xstepsize * xstep);
+	this->y -= (this->ystepsize * ystep);
 	this->do_jump(a_id);
 }
 
@@ -203,26 +219,42 @@ void ITurtle::move_left(float step, unsigned int a_id) {
 }
 
 void ITurtle::move_up_right(float step, unsigned int a_id) {
-	this->x += (this->xstepsize * step);
-	this->y -= (this->ystepsize * step);
-	this->do_move(a_id);
+	this->move_up_right(step, step, a_id);
 }
 
 void ITurtle::move_right_down(float step, unsigned int a_id) {
-	this->x += (this->xstepsize * step);
-	this->y += (this->ystepsize * step);
-	this->do_move(a_id);
+	this->move_right_down(step, step, a_id);
 }
 
 void ITurtle::move_down_left(float step, unsigned int a_id) {
-	this->x -= (this->xstepsize * step);
-	this->y += (this->ystepsize * step);
-	this->do_move(a_id);
+	this->move_down_left(step, step, a_id);
 }
 
 void ITurtle::move_left_up(float step, unsigned int a_id) {
-	this->x -= (this->xstepsize * step);
-	this->y -= (this->ystepsize * step);
+	this->move_left_up(step, step, a_id);
+}
+
+void ITurtle::move_up_right(float xstep, float ystep, unsigned int a_id) {
+	this->x += (this->xstepsize * xstep);
+	this->y -= (this->ystepsize * ystep);
+	this->do_move(a_id);
+}
+
+void ITurtle::move_right_down(float xstep, float ystep, unsigned int a_id) {
+	this->x += (this->xstepsize * xstep);
+	this->y += (this->ystepsize * ystep);
+	this->do_move(a_id);
+}
+
+void ITurtle::move_down_left(float xstep, float ystep, unsigned int a_id) {
+	this->x -= (this->xstepsize * xstep);
+	this->y += (this->ystepsize * ystep);
+	this->do_move(a_id);
+}
+
+void ITurtle::move_left_up(float xstep, float ystep, unsigned int a_id) {
+	this->x -= (this->xstepsize * xstep);
+	this->y -= (this->ystepsize * ystep);
 	this->do_move(a_id);
 }
 

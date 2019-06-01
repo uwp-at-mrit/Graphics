@@ -43,6 +43,10 @@ namespace WarGrey::SCADA {
 		void jump_right_down(float step, unsigned int a_id);
 		void jump_down_left(float step, unsigned int a_id);
 		void jump_left_up(float step, unsigned int a_id);
+		void jump_up_right(float xstep, float ystep, unsigned int a_id);
+		void jump_right_down(float xstep, float ystep, unsigned int a_id);
+		void jump_down_left(float xstep, float ystep, unsigned int a_id);
+		void jump_left_up(float xstep, float ystep, unsigned int a_id);
 
 	protected:
 		void move_up(float step, unsigned int a_id);
@@ -53,6 +57,10 @@ namespace WarGrey::SCADA {
 		void move_right_down(float step, unsigned int a_id);
 		void move_down_left(float step, unsigned int a_id);
 		void move_left_up(float step, unsigned int a_id);
+		void move_up_right(float xstep, float ystep, unsigned int a_id);
+		void move_right_down(float xstep, float ystep, unsigned int a_id);
+		void move_down_left(float xstep, float ystep, unsigned int a_id);
+		void move_left_up(float xstep, float ystep, unsigned int a_id);
 
 	protected:
 		void turn_down_left(unsigned int a_id);
@@ -265,6 +273,22 @@ namespace WarGrey::SCADA {
 			return this->jump_left_up(step, id);
 		}
 
+		WarGrey::SCADA::Turtle<Anchor>* jump_right_up(float xstep, float ystep, Anchor id = Anchor::_) {
+			return this->jump_up_right(xstep, ystep, id);
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* jump_down_right(float xstep, float ystep, Anchor id = Anchor::_) {
+			return this->jump_right_down(xstep, ystep, id);
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* jump_left_down(float xstep, float ystep, Anchor id = Anchor::_) {
+			return this->jump_down_left(xstep, ystep, id);
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* jump_up_left(float xstep, float ystep, Anchor id = Anchor::_) {
+			return this->jump_left_up(xstep, ystep, id);
+		}
+
 	public:
 		WarGrey::SCADA::Turtle<Anchor>* move_up(Anchor id) {
 			return this->move_up(1.0F, id);
@@ -378,6 +402,22 @@ namespace WarGrey::SCADA {
 			return this->move_left_up(step, id);
 		}
 
+		WarGrey::SCADA::Turtle<Anchor>* move_right_up(float xstep, float ystep, Anchor id = Anchor::_) {
+			return this->move_up_right(xstep, ystep, id);
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* move_down_right(float xstep, float ystep, Anchor id = Anchor::_) {
+			return this->move_right_down(xstep, ystep, id);
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* move_left_down(float xstep, float ystep, Anchor id = Anchor::_) {
+			return this->move_down_left(xstep, ystep, id);
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* move_up_left(float xstep, float ystep, Anchor id = Anchor::_) {
+			return this->move_left_up(xstep, ystep, id);
+		}
+
 	public:
 		WarGrey::SCADA::Turtle<Anchor>* jump_up(float step, Anchor id = Anchor::_) {
 			WarGrey::SCADA::ITurtle::jump_up(step, _I(id));
@@ -399,7 +439,6 @@ namespace WarGrey::SCADA {
 			return this;
 		}
 
-
 		WarGrey::SCADA::Turtle<Anchor>* jump_up_right(float step, Anchor id = Anchor::_) {
 			WarGrey::SCADA::ITurtle::jump_up_right(step, _I(id));
 			return this;
@@ -417,6 +456,26 @@ namespace WarGrey::SCADA {
 
 		WarGrey::SCADA::Turtle<Anchor>* jump_left_up(float step, Anchor id = Anchor::_) {
 			WarGrey::SCADA::ITurtle::jump_left_up(step, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* jump_up_right(float xstep, float ystep, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::jump_up_right(xstep, ystep, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* jump_right_down(float xstep, float ystep, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::jump_right_down(xstep, ystep, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* jump_down_left(float xstep, float ystep, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::jump_down_left(xstep, ystep, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* jump_left_up(float xstep, float ystep, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::jump_left_up(xstep, ystep, _I(id));
 			return this;
 		}
 
@@ -458,6 +517,26 @@ namespace WarGrey::SCADA {
 
 		WarGrey::SCADA::Turtle<Anchor>* move_left_up(float step, Anchor id = Anchor::_) {
 			WarGrey::SCADA::ITurtle::move_left_up(step, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* move_up_right(float xstep, float ystep, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::move_up_right(xstep, ystep, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* move_right_down(float xstep, float ystep, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::move_right_down(xstep, ystep, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* move_down_left(float xstep, float ystep, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::move_down_left(xstep, ystep, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* move_left_up(float xstep, float ystep, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::move_left_up(xstep, ystep, _I(id));
 			return this;
 		}
 
