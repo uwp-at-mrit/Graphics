@@ -120,4 +120,11 @@ namespace WarGrey::SCADA {
 	// stadium-liked ship
 	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ stadipe(float length, float radius);
 	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ stadipe(float x, float y, float length, float radius);
+
+	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ radiation(float long_radius, float short_radius,
+		double start_degrees, double end_degrees, size_t count, float thickness = 1.0F,
+		Microsoft::Graphics::Canvas::Geometry::CanvasStrokeStyle^ style = nullptr);
+	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ radiation(float cx, float cy, float long_radius, float short_radius,
+		double start_degrees, double end_degrees, size_t count, float thickness = 1.0F,
+		Microsoft::Graphics::Canvas::Geometry::CanvasStrokeStyle^ style = nullptr);
 }

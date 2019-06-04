@@ -382,3 +382,26 @@ CanvasGeometry^ WarGrey::SCADA::stadipe(float x, float y, float length, float ra
 
 	return CanvasGeometry::CreatePath(ship);
 }
+
+CanvasGeometry^ WarGrey::SCADA::radiation(float long_radius, float short_radius
+	, double start_degrees, double end_degrees, size_t count, float thickness, CanvasStrokeStyle^ style) {
+	return radiation(0.0F, 0.0F, long_radius, short_radius, start_degrees, end_degrees, count, thickness, style);
+}
+
+CanvasGeometry^ WarGrey::SCADA::radiation(float cx, float cy, float long_radius, float short_radius
+	, double start_degrees, double end_degrees, size_t count, float thickness, CanvasStrokeStyle^ style) {
+	CanvasPathBuilder^ radar = ref new CanvasPathBuilder(CanvasDevice::GetSharedDevice());
+	double step = (end_degrees - start_degrees) / double(count - 1);
+	float start_x, start_y, end_x, end_y;
+
+	for (double degrees = start_degrees; degrees <= end_degrees; degrees += step) {
+		circle_point(long_radius, degrees, &start_x, &start_y);
+		circle_point(short_radius, degrees, &end_x, &end_y);
+
+		radar->BeginFigure(cx + start_x, cy + start_y);
+		radar->AddLine(cx + end_x, cy + end_y);
+		radar->EndFigure(CanvasFigureLoop::Open);
+	}
+
+	return geometry_stroke(CanvasGeometry::CreatePath(radar), thickness, style);
+}
