@@ -30,5 +30,8 @@ namespace WarGrey::SCADA {
 	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ polar_masked_rectangle(float radius, double alpha_degrees, double rotation_degrees, double height_ratio);
 	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ polar_masked_rectangle(float radiusX, float radiusY, double alpha_degrees, double rotation_degrees, double height_ratio);
 
+	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ polar_rhombus(float radius, double rotation_degrees);
+	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ polar_rhombus(float radiusX, float radiusY, double rotation_degrees);
+
 	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ polar_trapezoid(float radius, float ubase, double rotation_degrees, float* height = nullptr);
 }

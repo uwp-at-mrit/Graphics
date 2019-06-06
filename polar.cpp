@@ -289,6 +289,28 @@ CanvasGeometry^ WarGrey::SCADA::polar_masked_rectangle(float rx, float ry, doubl
 	}
 }
 
+CanvasGeometry^ WarGrey::SCADA::polar_rhombus(float r, double rotation) {
+	return polar_rhombus(r, r, rotation);
+}
+
+CanvasGeometry^ WarGrey::SCADA::polar_rhombus(float rX, float rY, double rotation) {
+	auto rhombus = ref new CanvasPathBuilder(CanvasDevice::GetSharedDevice());
+	float tx, ty, bx, by, lx, ly, rx, ry;
+
+	circle_point(rX, rotation - 90.0, &tx, &ty);
+	circle_point(rX, rotation + 90.0, &bx, &by);
+	circle_point(rY, rotation + 180.0, &lx, &ly);
+	circle_point(rY, rotation + 0.0, &rx, &ry);
+
+	rhombus->BeginFigure(tx, ty);
+	rhombus->AddLine(rx, ry);
+	rhombus->AddLine(bx, by);
+	rhombus->AddLine(lx, ly);
+	rhombus->EndFigure(CanvasFigureLoop::Closed);
+
+	return CanvasGeometry::CreatePath(rhombus);
+}
+
 CanvasGeometry^ WarGrey::SCADA::polar_trapezoid(float r, float ubase, double rotation, float* height) {
 	auto trapezoid = ref new CanvasPathBuilder(CanvasDevice::GetSharedDevice());
 	double alpha_radians = flacos(ubase * 0.5F / r);
