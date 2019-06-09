@@ -87,6 +87,26 @@ CanvasGeometry^ WarGrey::SCADA::vline(float l, float th, CanvasStrokeStyle^ styl
     return vline(0.0F, 0.0F, l, th, style);
 }
 
+CanvasGeometry^ WarGrey::SCADA::bezier(float sx, float sy, float cx, float cy, float ex, float ey, float th, CanvasStrokeStyle^ style) {
+	auto quadratic = ref new CanvasPathBuilder(CanvasDevice::GetSharedDevice());
+
+	quadratic->BeginFigure(sx, sy);
+	quadratic->AddQuadraticBezier(float2(cx, cy), float2(ex, ey));
+	quadratic->EndFigure(CanvasFigureLoop::Open);
+
+	return geometry_stroke(CanvasGeometry::CreatePath(quadratic), th, style);
+}
+
+CanvasGeometry^ WarGrey::SCADA::bezier(float sx, float sy, float cx1, float cy1, float cx2, float cy2, float ex, float ey, float th, CanvasStrokeStyle^ style) {
+	auto cubic = ref new CanvasPathBuilder(CanvasDevice::GetSharedDevice());
+
+	cubic->BeginFigure(sx, sy);
+	cubic->AddCubicBezier(float2(cx1, cy1), float2(cx2, cy2), float2(ex, ey));
+	cubic->EndFigure(CanvasFigureLoop::Open);
+
+	return geometry_stroke(CanvasGeometry::CreatePath(cubic), th, style);
+}
+
 CanvasGeometry^ WarGrey::SCADA::arc(double start, double end, float radiusX, float radiusY, float th, CanvasStrokeStyle^ style) {
 	return arc(0.0F, 0.0F, start, end, radiusX, radiusY, th, style);
 }

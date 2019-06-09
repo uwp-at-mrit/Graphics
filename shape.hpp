@@ -38,6 +38,14 @@ namespace WarGrey::SCADA {
 		float sx, float sy, float ex, float ey, float thickness = 1.0F,
 		Microsoft::Graphics::Canvas::Geometry::CanvasStrokeStyle^ style = nullptr);
 
+	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ bezier(
+		float sx, float sy, float cx, float cy, float ex, float ey, float thickness = 1.0F,
+		Microsoft::Graphics::Canvas::Geometry::CanvasStrokeStyle^ style = nullptr);
+
+	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ bezier(
+		float sx, float sy, float cx1, float cy1, float cx2, float cy2, float ex, float ey, float thickness = 1.0F,
+		Microsoft::Graphics::Canvas::Geometry::CanvasStrokeStyle^ style = nullptr);
+
 	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ circle(float radius);
 	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ circle(float cx, float cy, float radius);
 
