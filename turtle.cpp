@@ -15,6 +15,7 @@ using namespace Microsoft::Graphics::Canvas::Geometry;
 
 using namespace Windows::Foundation::Numerics;
 
+/*************************************************************************************************/
 ITurtle::ITurtle(float xstepsize, float ystepsize, bool big_turn, unsigned int start_anchor, unsigned int _anchor)
 	: x(0.0F), y(0.0F), xstepsize(xstepsize), ystepsize(ystepsize), _anchor(_anchor) {
 	this->xradius = xstepsize;
@@ -314,6 +315,128 @@ void ITurtle::turn_right_up_left(unsigned int a_id) {
 	this->do_counterclockwise_turn(a_id);
 }
 
+void ITurtle::drift(float xstep, float ystep, float xctrl_step, float yctrl_step, unsigned int a_id) {
+	float xctrl = this->x + this->xstepsize * xctrl_step;
+	float yctrl = this->y + this->ystepsize * yctrl_step;
+
+	this->x += this->xstepsize * xstep;
+	this->y += this->ystepsize * ystep;
+
+	this->do_drift(xctrl, yctrl, a_id);
+}
+
+void ITurtle::drift(float xstep, float ystep, unsigned int ctrl_id, unsigned int a_id) {
+	float xctrl, yctrl;
+
+	this->x += this->xstepsize * xstep;
+	this->y += this->ystepsize * ystep;
+
+	this->fill_anchor_location(ctrl_id, &xctrl, &yctrl);
+	this->do_drift(xctrl, yctrl, a_id);
+}
+
+void ITurtle::drift(float xstep, float ystep, float xctrl1_step, float yctrl1_step, float xctrl2_step, float yctrl2_step, unsigned int a_id) {
+	float xctrl1 = this->x + this->xstepsize * xctrl1_step;
+	float yctrl1 = this->y + this->ystepsize * yctrl1_step;
+	float xctrl2 = this->x + this->xstepsize * xctrl2_step;
+	float yctrl2 = this->y + this->ystepsize * yctrl2_step;
+
+	this->x += this->xstepsize * xstep;
+	this->y += this->ystepsize * ystep;
+
+	this->do_drift(xctrl1, yctrl1, xctrl2, yctrl2, a_id);
+}
+
+void ITurtle::drift(float xstep, float ystep, unsigned int ctrl1_id, float xctrl2_step, float yctrl2_step, unsigned int a_id) {
+	float xctrl2 = this->x + this->xstepsize * xctrl2_step;
+	float yctrl2 = this->y + this->ystepsize * yctrl2_step;
+	float xctrl1, yctrl1;
+
+	this->x += this->xstepsize * xstep;
+	this->y += this->ystepsize * ystep;
+
+	this->fill_anchor_location(ctrl1_id, &xctrl1, &yctrl1);
+	this->do_drift(xctrl1, yctrl1, xctrl2, yctrl2, a_id);
+}
+
+void ITurtle::drift(float xstep, float ystep, float xctrl1_step, float yctrl1_step, unsigned int ctrl2_id, unsigned int a_id) {
+	float xctrl1 = this->x + this->xstepsize * xctrl1_step;
+	float yctrl1 = this->y + this->ystepsize * yctrl1_step;
+	float xctrl2, yctrl2;
+
+	this->x += this->xstepsize * xstep;
+	this->y += this->ystepsize * ystep;
+	
+	this->fill_anchor_location(ctrl2_id, &xctrl2, &yctrl2);
+	this->do_drift(xctrl1, yctrl1, xctrl2, yctrl2, a_id);
+}
+
+void ITurtle::drift(float xstep, float ystep, unsigned int ctrl1_id, unsigned int ctrl2_id, unsigned int a_id) {
+	float xctrl1, yctrl1, xctrl2, yctrl2;
+
+	this->x += this->xstepsize * xstep;
+	this->y += this->ystepsize * ystep;
+
+	this->fill_anchor_location(ctrl1_id, &xctrl1, &yctrl1);
+	this->fill_anchor_location(ctrl2_id, &xctrl2, &yctrl2);
+	this->do_drift(xctrl1, yctrl1, xctrl2, yctrl2, a_id);
+}
+
+void ITurtle::drift_to(unsigned int a_id, float xctrl_step, float yctrl_step) {
+	float xctrl = this->x + this->xstepsize * xctrl_step;
+	float yctrl = this->y + this->ystepsize * yctrl_step;
+
+	this->fill_anchor_location(a_id, &this->x, &this->y);
+	this->do_drift(xctrl, yctrl, this->_anchor);
+}
+
+void ITurtle::drift_to(unsigned int a_id, unsigned int ctrl_id) {
+	float xctrl, yctrl;
+
+	this->fill_anchor_location(a_id, &this->x, &this->y);
+	this->fill_anchor_location(ctrl_id, &xctrl, &yctrl);
+	this->do_drift(xctrl, yctrl, this->_anchor);
+}
+
+void ITurtle::drift_to(unsigned int a_id, float xctrl1_step, float yctrl1_step, float xctrl2_step, float yctrl2_step) {
+	float xctrl1 = this->x + this->xstepsize * xctrl1_step;
+	float yctrl1 = this->y + this->ystepsize * yctrl1_step;
+	float xctrl2 = this->x + this->xstepsize * xctrl2_step;
+	float yctrl2 = this->y + this->ystepsize * yctrl2_step;
+
+	this->fill_anchor_location(a_id, &this->x, &this->y);
+	this->do_drift(xctrl1, yctrl1, xctrl2, yctrl2, this->_anchor);
+}
+
+void ITurtle::drift_to(unsigned int a_id, unsigned int ctrl1_id, float xctrl2_step, float yctrl2_step) {
+	float xctrl2 = this->x + this->xstepsize * xctrl2_step;
+	float yctrl2 = this->y + this->ystepsize * yctrl2_step;
+	float xctrl1, yctrl1;
+
+	this->fill_anchor_location(a_id, &this->x, &this->y);
+	this->fill_anchor_location(ctrl1_id, &xctrl1, &yctrl1);
+	this->do_drift(xctrl1, yctrl1, xctrl2, yctrl2, this->_anchor);
+}
+
+void ITurtle::drift_to(unsigned int a_id, float xctrl1_step, float yctrl1_step, unsigned int ctrl2_id) {
+	float xctrl1 = this->x + this->xstepsize * xctrl1_step;
+	float yctrl1 = this->y + this->ystepsize * yctrl1_step;
+	float xctrl2, yctrl2;
+
+	this->fill_anchor_location(a_id, &this->x, &this->y);
+	this->fill_anchor_location(ctrl2_id, &xctrl2, &yctrl2);
+	this->do_drift(xctrl1, yctrl1, xctrl2, yctrl2, this->_anchor);
+}
+
+void ITurtle::drift_to(unsigned int a_id, unsigned int ctrl1_id, unsigned int ctrl2_id) {
+	float xctrl1, yctrl1, xctrl2, yctrl2;
+
+	this->fill_anchor_location(a_id, &this->x, &this->y);
+	this->fill_anchor_location(ctrl1_id, &xctrl1, &yctrl1);
+	this->fill_anchor_location(ctrl2_id, &xctrl2, &yctrl2);
+	this->do_drift(xctrl1, yctrl1, xctrl2, yctrl2, this->_anchor);
+}
+
 /*************************************************************************************************/
 void ITurtle::do_rebuild() {
 	auto shared_ds = CanvasDevice::GetSharedDevice();
@@ -366,4 +489,14 @@ void ITurtle::do_counterclockwise_turn(unsigned int a_id) {
 	this->do_step(a_id);
 	this->track->AddArc(float2(this->x, this->y), this->xradius, this->yradius, 0.0F,
 		CanvasSweepDirection::CounterClockwise, CanvasArcSize::Small);
+}
+
+void ITurtle::do_drift(float xctrl, float yctrl, unsigned int a_id) {
+	this->do_step(a_id);
+	this->track->AddQuadraticBezier(float2(xctrl, yctrl), float2(this->x, this->y));
+}
+
+void ITurtle::do_drift(float xctrl1, float yctrl1, float xctrl2, float yctrl2, unsigned int a_id) {
+	this->do_step(a_id);
+	this->track->AddCubicBezier(float2(xctrl1, yctrl1), float2(xctrl2, yctrl2), float2(this->x, this->y));
 }

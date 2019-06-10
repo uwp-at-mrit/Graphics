@@ -74,6 +74,21 @@ namespace WarGrey::SCADA {
 		void turn_right_down_left(unsigned int a_id);
 		void turn_right_up_left(unsigned int a_id);
 
+	protected:
+		void drift(float xstep, float ystep, float xctrl_step, float yctrl_step, unsigned int a_id);
+		void drift(float xstep, float ystep, unsigned int ctrl_id, unsigned int a_id);
+		void drift(float xstep, float ystep, float xctrl1_step, float yctrl1_step, float xctrl2_step, float yctrl2_step, unsigned int a_id);
+		void drift(float xstep, float ystep, unsigned int ctrl1_id, float xctrl2_step, float yctrl2_step, unsigned int a_id);
+		void drift(float xstep, float ystep, float xctrl1_step, float yctrl1_step, unsigned int ctrl2_id, unsigned int a_id);
+		void drift(float xstep, float ystep, unsigned int ctrl1_id, unsigned int ctrl2_id, unsigned int a_id);
+
+		void drift_to(unsigned int a_id, float xctrl_step, float yctrl_step);
+		void drift_to(unsigned int a_id, unsigned int ctrl_id);
+		void drift_to(unsigned int a_id, float xctrl1_step, float yctrl1_step, float xctrl2_step, float yctrl2_step);
+		void drift_to(unsigned int a_id, unsigned int ctrl1_id, float xctrl2_step, float yctrl2_step);
+		void drift_to(unsigned int a_id, float xctrl1_step, float yctrl1_step, unsigned int ctrl2_id);
+		void drift_to(unsigned int a_id, unsigned int ctrl1_id, unsigned int ctrl2_id);
+
 	private:
 		void do_rebuild();
 		void do_step(unsigned int a_id);
@@ -82,6 +97,8 @@ namespace WarGrey::SCADA {
 		void do_move(unsigned int a_id);
 		void do_clockwise_turn(unsigned int a_id);
 		void do_counterclockwise_turn(unsigned int a_id);
+		void do_drift(float xctrl, float yctrl, unsigned int a_id);
+		void do_drift(float xctrl1, float yctrl1, float xctrl2, float yctrl2, unsigned int a_id);
 
 	private:
 		Microsoft::Graphics::Canvas::Geometry::CanvasPathBuilder^ track;
@@ -612,6 +629,67 @@ namespace WarGrey::SCADA {
 
 		WarGrey::SCADA::Turtle<Anchor>* turn_right_up_left(Anchor id = Anchor::_) {
 			WarGrey::SCADA::ITurtle::turn_right_up_left(_I(id));
+			return this;
+		}
+
+	public:
+		WarGrey::SCADA::Turtle<Anchor>* drift(float xstep, float ystep, float xctrl_step, float yctrl_step, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::drift(xstep, ystep, xctrl_step, yctrl_step, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift(float xstep, float ystep, Anchor ctrl_id, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::drift(xstep, ystep, _I(ctrl_id), _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift(float xstep, float ystep, float xctrl1_step, float yctrl1_step, float xctrl2_step, float yctrl2_step, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::drift(xstep, ystep, xctrl1_step, yctrl1_step, xctrl2_step, yctrl2_step, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift(float xstep, float ystep, Anchor ctrl1_id, float xctrl2_step, float yctrl2_step, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::drift(xstep, ystep, _I(ctrl1_id), xctrl2_step, yctrl2_step, _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift(float xstep, float ystep,  float xctrl1_step, float yctrl1_step, Anchor ctrl2_id, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::drift(xstep, ystep, xctrl1_step, yctrl1_step, _I(ctrl2_id), _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift(float xstep, float ystep, Anchor ctrl1_id, Anchor ctrl2_id, Anchor id = Anchor::_) {
+			WarGrey::SCADA::ITurtle::drift(xstep, ystep, _I(ctrl1_id), _I(ctrl2_id), _I(id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift_to(Anchor id, float xctrl_step, float yctrl_step) {
+			WarGrey::SCADA::ITurtle::drift(_I(id), xctrl_step, yctrl_step);
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift_to(Anchor id, Anchor ctrl_id) {
+			WarGrey::SCADA::ITurtle::drift_to(_I(id), _I(ctrl_id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift_to(Anchor id, float xctrl1_step, float yctrl1_step, float xctrl2_step, float yctrl2_step) {
+			WarGrey::SCADA::ITurtle::drift_to(_I(id), xctrl1_step, yctrl1_step, xctrl2_step, yctrl2_step);
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift_to(Anchor id, Anchor ctrl1_id, float xctrl2_step, float yctrl2_step) {
+			WarGrey::SCADA::ITurtle::drift_to(_I(id), _I(ctrl1_id), xctrl2_step, yctrl2_step);
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift_to(Anchor id, float xctrl1_step, float yctrl1_step, Anchor ctrl2_id) {
+			WarGrey::SCADA::ITurtle::drift_to(_I(id), xctrl1_step, yctrl1_step, _I(ctrl2_id));
+			return this;
+		}
+
+		WarGrey::SCADA::Turtle<Anchor>* drift_to(Anchor id, Anchor ctrl1_id, Anchor ctrl2_id) {
+			WarGrey::SCADA::ITurtle::drift_to(_I(id), _I(ctrl1_id), _I(ctrl2_id));
 			return this;
 		}
 
