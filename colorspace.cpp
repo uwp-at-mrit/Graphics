@@ -159,6 +159,14 @@ unsigned int WarGrey::SCADA::color_to_hexadecimal(Color& c) {
 }
 
 /*************************************************************************************************/
+Color WarGrey::SCADA::gbra(unsigned int hex, double a) { // Stupid Microsoft and Win32 GDI
+	auto g = (unsigned char)((hex >> 16) & 0xFF);
+	auto b = (unsigned char)((hex >> 8) & 0xFF);
+	auto r = (unsigned char)(hex & 0xFF);
+
+	return ColorHelper::FromArgb(UCHAR(a), r, g, b);
+}
+
 Color WarGrey::SCADA::rgba(unsigned int hex, double a) {
     auto r = (unsigned char)((hex >> 16) & 0xFF);
     auto g = (unsigned char)((hex >> 8) & 0xFF);
