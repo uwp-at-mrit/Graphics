@@ -12,12 +12,22 @@ inline static float quick_degrees_to_radians(double degrees) {
 	return float(degrees * pi / 180.0);
 }
 
+/*************************************************************************************************/
 float WarGrey::SCADA::viewport_fit_scaling(Size& src_size, float target_width, float target_height) {
 	return viewport_fit_scaling(src_size.Width, src_size.Height, target_width, target_height);
 }
 
 float WarGrey::SCADA::viewport_fit_scaling(float src_width, float src_height, float target_width, float target_height) {
 	return flmin(src_width / target_width, src_height / target_height);
+}
+
+bool WarGrey::SCADA::rectangle_inside(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2) {
+	return flin(tlx2, tlx1, brx2) && flin(tlx2, brx1, brx2) && (flin(tly2, tly1, bry2) && flin(tly2, bry1, bry2));
+}
+
+bool WarGrey::SCADA::rectangle_overlay(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2) {
+	return ((flin(tlx2, tlx1, brx2) || flin(tlx2, brx1, brx2)) && (flin(tly2, tly1, bry2) || flin(tly2, bry1, bry2)))
+		|| rectangle_inside(tlx2, tly2, brx2, bry2, tlx1, tly1, brx1, bry1);
 }
 
 double WarGrey::SCADA::radians_to_degrees(double radians) {
