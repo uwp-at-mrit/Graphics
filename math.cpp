@@ -26,16 +26,7 @@ bool WarGrey::SCADA::rectangle_inside(float tlx1, float tly1, float brx1, float 
 }
 
 bool WarGrey::SCADA::rectangle_overlay(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2) {
-	bool tlx1_in = flin(tlx2, tlx1, brx2);
-	bool brx1_in = flin(tlx2, brx1, brx2);
-	bool tly1_in = flin(tly2, tly1, bry2);
-	bool bry1_in = flin(tly2, bry1, bry2);
-	bool wdth1_across = (tlx1 < tlx2) && (brx1 > brx2);
-	bool hght1_across = (tly1 < tly2) && (bry1 > bry2);
-
-	return (tlx1_in || brx1_in) && (tly1_in || bry1_in)
-		|| (wdth1_across && (hght1_across || tly1_in || bry1_in))
-		|| (hght1_across && (tlx1_in || brx1_in));
+	return !((brx1 < tlx2) || (tlx1 > brx2) || (bry1 < tly2) || (tly1 > bry2));
 }
 
 double WarGrey::SCADA::radians_to_degrees(double radians) {
