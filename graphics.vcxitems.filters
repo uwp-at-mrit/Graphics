@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)brushes.cxx" />
     <ClCompile Include="$(MSBuildThisFileDirectory)colorspace.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)color_test.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)draw.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)geometry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)math.cpp" />
@@ -23,11 +22,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)measure\hhatchmark.cpp">
       <Filter>measure</Filter>
     </ClCompile>
+    <ClCompile Include="F:\DredgerConstruction\Graphics\test\colorspace_convertion.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)palettes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)brushes.hxx" />
     <ClInclude Include="$(MSBuildThisFileDirectory)colorspace.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)color_test.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)draw.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)geometry.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)math.hpp" />
@@ -47,10 +49,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)measure\hhatchmark.hpp">
       <Filter>measure</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.hpp">
+      <Filter>test</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)palettes.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="measure">
       <UniqueIdentifier>{8ba30d35-7d01-4708-8f5f-48e855a98083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test">
+      <UniqueIdentifier>{790b7095-623f-4269-b93c-d08d2a9776b7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
