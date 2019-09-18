@@ -10,7 +10,7 @@ static inline int rgb_to_hex(Color rgb) {
 	return (rgb.R << 16) | (rgb.G << 8) | rgb.B;
 }
 
-void test_colorspace() {
+void WarGrey::SCADA::test_colorspace() {
 	double samples[][14]{
 		/*01*/{ 1.000, 0.000, 0.000,   0.0,   0.0, 1.000, 1.000, 1.000, 0.500, 0.333, 0.299, 1.000, 1.000, 1.000 },
 		/*02*/{ 0.750, 0.750, 0.000,  60.0,  60.0, 0.750, 0.750, 0.750, 0.375, 0.500, 0.664, 1.000, 1.000, 1.000 },
