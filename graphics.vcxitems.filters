@@ -47,10 +47,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)measure\hhatchmark.hpp">
       <Filter>measure</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)palettes.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.hpp">
       <Filter>test</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)palettes.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="measure">
