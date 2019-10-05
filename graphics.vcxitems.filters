@@ -23,7 +23,9 @@
       <Filter>measure</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)palettes.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.cpp">
+      <Filter>test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)brushes.hxx" />
