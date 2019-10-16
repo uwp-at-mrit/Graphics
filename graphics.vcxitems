@@ -17,6 +17,7 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)brushes.cxx" />
     <ClCompile Include="$(MSBuildThisFileDirectory)colorspace.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)cs\wgs_xy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)palettes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)draw.cpp" />
@@ -36,6 +37,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)brushes.hxx" />
     <ClInclude Include="$(MSBuildThisFileDirectory)colorspace.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)cs\wgs_xy.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)draw.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)geometry.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)measure\hhatchmark.hpp" />

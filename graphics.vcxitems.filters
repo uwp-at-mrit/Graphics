@@ -26,6 +26,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)cs\wgs_xy.cpp">
+      <Filter>cs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)brushes.hxx" />
@@ -53,6 +56,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.hpp">
       <Filter>test</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)cs\wgs_xy.hpp">
+      <Filter>cs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="measure">
@@ -60,6 +66,9 @@
     </Filter>
     <Filter Include="test">
       <UniqueIdentifier>{790b7095-623f-4269-b93c-d08d2a9776b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cs">
+      <UniqueIdentifier>{9f6fba8f-baa9-4535-931a-de2b4cc099f0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
