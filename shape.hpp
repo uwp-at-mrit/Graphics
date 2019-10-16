@@ -14,6 +14,9 @@ namespace WarGrey::SCADA {
 		Platform::String^ text, Microsoft::Graphics::Canvas::Text::CanvasTextFormat^ font = nullptr,
 		WarGrey::SCADA::TextExtent* te = nullptr, bool adjust = true);
 
+	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ paragraph(Platform::String^ text, double degrees, float radius = 0.0F,
+		Microsoft::Graphics::Canvas::Text::CanvasTextFormat^ font = nullptr, bool adjust = true);
+
 	Microsoft::Graphics::Canvas::Geometry::CanvasGeometry^ vline(
 		float length, float thickness = 1.0F,
 		Microsoft::Graphics::Canvas::Geometry::CanvasStrokeStyle^ style = nullptr);

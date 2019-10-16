@@ -57,6 +57,13 @@ CanvasGeometry^ WarGrey::SCADA::paragraph(Platform::String^ text, CanvasTextForm
 	return paragraph(make_text_layout(text, font), te, adjust);
 }
 
+CanvasGeometry^ WarGrey::SCADA::paragraph(Platform::String^ text, double degrees, float radius, CanvasTextFormat^ font, bool adjust) {
+	TextExtent te;
+	auto p = paragraph(text, font, &te, adjust);
+
+	return geometry_rotate(geometry_translate(p, -te.width * 0.5F, -radius - te.height * 0.5F), degrees + 90.0, 0.0F, 0.0F);
+}
+
 CanvasGeometry^ WarGrey::SCADA::line(float sx, float sy, float ex, float ey, float th, CanvasStrokeStyle^ style) {
 	auto line = ref new CanvasPathBuilder(CanvasDevice::GetSharedDevice());
 
