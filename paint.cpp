@@ -116,6 +116,10 @@ CanvasSolidColorBrush^ WarGrey::SCADA::make_solid_brush(Color& color, double alp
     return ref new CanvasSolidColorBrush(CanvasDevice::GetSharedDevice(), (alpha == 1.0) ? color : rgba(color, alpha));
 }
 
+CanvasSolidColorBrush^ WarGrey::SCADA::make_solid_brush(unsigned int r, unsigned int g, unsigned int b, double alpha) {
+	return make_solid_brush(ColorHelper::FromArgb(255, (unsigned char)r, (unsigned char)g, (unsigned char)b), alpha);
+}
+
 CanvasSolidColorBrush^ WarGrey::SCADA::make_solid_brush(unsigned int hex, double alpha) {
 	return ref new CanvasSolidColorBrush(CanvasDevice::GetSharedDevice(), rgba(hex, alpha));
 }

@@ -1,8 +1,10 @@
 #pragma once
 
 namespace WarGrey::SCADA {
+	double color_char_to_double(unsigned char c);
 	unsigned char color_double_to_char(double c);
 	unsigned int color_to_hexadecimal(Windows::UI::Color& c);
+	unsigned int rgb_to_hexadecimal(unsigned int r, unsigned int g, unsigned int b);
 
 	Windows::UI::Color gbra(unsigned int hex, double alpha = 1.0);
 	Windows::UI::Color rgba(unsigned int hex, double alpha = 1.0);

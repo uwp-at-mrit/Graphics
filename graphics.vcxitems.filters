@@ -22,12 +22,17 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)measure\hhatchmark.cpp">
       <Filter>measure</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)palettes.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.cpp">
       <Filter>test</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)cs\wgs_xy.cpp">
       <Filter>cs</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)palette\x11.cpp">
+      <Filter>palette</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)palette\xterm256.cpp">
+      <Filter>palette</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,13 +57,19 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)measure\hhatchmark.hpp">
       <Filter>measure</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)palettes.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.hpp">
       <Filter>test</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)cs\wgs_xy.hpp">
       <Filter>cs</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)palette\x11.hpp">
+      <Filter>palette</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)palette\xterm256.hpp">
+      <Filter>palette</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)palette.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="measure">
@@ -69,6 +80,9 @@
     </Filter>
     <Filter Include="cs">
       <UniqueIdentifier>{9f6fba8f-baa9-4535-931a-de2b4cc099f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="palette">
+      <UniqueIdentifier>{2a826230-36e5-48cb-8b8f-87511d237bd9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

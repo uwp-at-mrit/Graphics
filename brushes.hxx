@@ -8,6 +8,7 @@ namespace WarGrey::SCADA {
 	private ref class Colours sealed {
 	public:
 		static Microsoft::Graphics::Canvas::Brushes::CanvasSolidColorBrush^ make(double h, double s, double l, double alpha = 1.0);
+		static Microsoft::Graphics::Canvas::Brushes::CanvasSolidColorBrush^ make(unsigned int r, unsigned int g, unsigned int b, double alpha = 1.0);
 		static Microsoft::Graphics::Canvas::Brushes::CanvasSolidColorBrush^ make(unsigned int hex, double alpha = 1.0);
 		static Microsoft::Graphics::Canvas::Brushes::CanvasSolidColorBrush^ make(WarGrey::SCADA::Colour^ src, double alpha = 1.0);
 		

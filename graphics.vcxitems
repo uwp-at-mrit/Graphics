@@ -18,7 +18,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)brushes.cxx" />
     <ClCompile Include="$(MSBuildThisFileDirectory)colorspace.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)cs\wgs_xy.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)palettes.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)palette\x11.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)palette\xterm256.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)draw.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)geometry.cpp" />
@@ -45,7 +46,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)measure\vhatchmark.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)math.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)paint.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)palettes.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)palette.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)palette\x11.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)palette\xterm256.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)polar.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)shape.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)shape3d.hpp" />

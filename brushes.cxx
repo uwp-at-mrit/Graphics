@@ -14,6 +14,10 @@ CanvasSolidColorBrush^ Colours::make(double hue, double saturation, double light
 	return make_solid_brush(hsla(hue, saturation, lightness, alpha));
 }
 
+CanvasSolidColorBrush^ Colours::make(unsigned int red, unsigned int green, unsigned int blue, double alpha) {
+	return make_solid_brush(red, green, blue, alpha);
+}
+
 CanvasSolidColorBrush^ Colours::make(unsigned int hex, double alpha) {
 	return make_solid_brush(hex, alpha);
 }

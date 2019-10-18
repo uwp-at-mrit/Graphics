@@ -154,8 +154,16 @@ unsigned char WarGrey::SCADA::color_double_to_char(double c) {
 	return UCHAR(c);
 }
 
+double WarGrey::SCADA::color_char_to_double(unsigned char c) {
+	return double(c) / 255.0;
+}
+
+unsigned int WarGrey::SCADA::rgb_to_hexadecimal(unsigned int r, unsigned int g, unsigned int b) {
+	return (r << 16) | (g << 8) | b; 
+}
+
 unsigned int WarGrey::SCADA::color_to_hexadecimal(Color& c) {
-	return (c.R << 16) | (c.G << 8) | c.B; 
+	return rgb_to_hexadecimal(c.R, c.G, c.B); 
 }
 
 /*************************************************************************************************/
