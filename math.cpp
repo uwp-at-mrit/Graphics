@@ -107,6 +107,10 @@ double WarGrey::SCADA::points_angle(float x1, float y1, float x2, float y2) {
 	return radians_to_degrees(flatan(double(y2 - y1), double(x2 - x1)));
 }
 
+double WarGrey::SCADA::points_angle(double x1, double y1, double x2, double y2) {
+	return radians_to_degrees(flatan(y2 - y1, x2 - x1));
+}
+
 float WarGrey::SCADA::points_distance(float2& pt1, float2& pt2) {
 	return points_distance(pt1.x, pt1.y, pt2.x, pt2.y);
 }
@@ -114,6 +118,13 @@ float WarGrey::SCADA::points_distance(float2& pt1, float2& pt2) {
 float WarGrey::SCADA::points_distance(float x1, float y1, float x2, float y2) {
 	float dx = x2 - x1;
 	float dy = y2 - y1;
+
+	return flsqrt(dx * dx + dy * dy);
+}
+
+double WarGrey::SCADA::points_distance(double x1, double y1, double x2, double y2) {
+	double dx = x2 - x1;
+	double dy = y2 - y1;
 
 	return flsqrt(dx * dx + dy * dy);
 }
