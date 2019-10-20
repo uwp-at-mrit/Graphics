@@ -6,7 +6,7 @@ namespace WarGrey::SCADA {
 
 	bool rectangle_inside(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2);
 	bool rectangle_overlay(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2);
-	bool rectangle_contain(float tlx1, float tly1, float brx1, float bry1, float x, float y);
+	bool rectangle_contain(float tlx, float tly, float brx, float bry, float x, float y);
 
 	void region_fuse_point(double* lx, double* ty, double* rx, double* by, double x, double y);
 	void region_fuse_point(Windows::Foundation::Numerics::float2* lt, Windows::Foundation::Numerics::float2* rb, float x, float y);
@@ -36,4 +36,8 @@ namespace WarGrey::SCADA {
 	void ellipse_point(float radiusX, float radiusY, double degrees, float* x, float* y);
 	
 	void line_point(float x0, float y0, float x1, float y1, double ratio, float* x, float* y);
+	void line_point(Windows::Foundation::Numerics::float2& pt0, Windows::Foundation::Numerics::float2& pt1, double ratio, float* x, float* y);
+
+	double dot_product(double x1, double y1, double x2, double y2);
+	bool is_foot_on_segment(double px, double py, Windows::Foundation::Numerics::float2& A, Windows::Foundation::Numerics::float2& B);
 }

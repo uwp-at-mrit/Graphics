@@ -169,3 +169,35 @@ void WarGrey::SCADA::line_point(float x0, float y0, float x1, float y1, double r
 	SET_BOX(x, (x0 - x1) * flratio + x1);
 	SET_BOX(y, (y0 - y1) * flratio + y1);
 }
+
+void WarGrey::SCADA::line_point(float2& pt0, float2& pt1, double ratio, float* x, float* y) {
+	line_point(pt0.x, pt0.y, pt1.x, pt1.y, ratio, x, y);
+}
+
+/*************************************************************************************************/
+double WarGrey::SCADA::dot_product(double x1, double y1, double x2, double y2) {
+	return x1 * x2 + y1 * y2;
+}
+
+bool WarGrey::SCADA::is_foot_on_segment(double px, double py, float2& A, float2& B) {
+	// To test if the foot of Point P(px, py) on Segment AB actually lies on the segment.
+
+	/** Theorem
+	 * In Euclidean Vector Space, the dot product of two vectors is a kind of scalar multiplication
+	 * which takes direction into account. Any result of dot products has one of the three geometric
+	 * meanings:
+	 *   > 0: the two vectors have an acute angle.
+	 *   = 0: the two vectors are perpendicular.
+	 *   < 0: the two vectors have an obtuse angle.
+	 *
+	 * This theorem also works when the point and the segment are collinear.
+	 *
+	 * Thus, the predicate is true when (AP·AB)(BP·BA) >= 0
+	 */
+
+
+	double AP_AB = dot_product(px - A.x, py - A.y, B.x - A.x, B.y - A.y);
+	double BP_BA = dot_product(px - B.x, py - B.y, A.x - B.x, A.y - B.y);
+
+	return (AP_AB * BP_BA) >= 0.0;
+}
