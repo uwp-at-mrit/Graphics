@@ -39,5 +39,5 @@ namespace WarGrey::SCADA {
 	void line_point(Windows::Foundation::Numerics::float2& pt0, Windows::Foundation::Numerics::float2& pt1, double ratio, float* x, float* y);
 
 	double dot_product(double x1, double y1, double x2, double y2);
-	bool is_foot_on_segment(double px, double py, Windows::Foundation::Numerics::float2& A, Windows::Foundation::Numerics::float2& B);
+	bool is_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By);
 }

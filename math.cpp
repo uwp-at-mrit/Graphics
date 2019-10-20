@@ -179,7 +179,7 @@ double WarGrey::SCADA::dot_product(double x1, double y1, double x2, double y2) {
 	return x1 * x2 + y1 * y2;
 }
 
-bool WarGrey::SCADA::is_foot_on_segment(double px, double py, float2& A, float2& B) {
+bool WarGrey::SCADA::is_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By) {
 	// To test if the foot of Point P(px, py) on Segment AB actually lies on the segment.
 
 	/** Theorem
@@ -196,8 +196,8 @@ bool WarGrey::SCADA::is_foot_on_segment(double px, double py, float2& A, float2&
 	 */
 
 
-	double AP_AB = dot_product(px - A.x, py - A.y, B.x - A.x, B.y - A.y);
-	double BP_BA = dot_product(px - B.x, py - B.y, A.x - B.x, A.y - B.y);
+	double AP_AB = dot_product(px - Ax, py - Ay, Bx - Ax, By - Ay);
+	double BP_BA = dot_product(px - Bx, py - By, Ax - Bx, Ay - By);
 
 	return (AP_AB * BP_BA) >= 0.0;
 }
