@@ -179,8 +179,33 @@ double WarGrey::SCADA::dot_product(double x1, double y1, double x2, double y2) {
 	return x1 * x2 + y1 * y2;
 }
 
+void WarGrey::SCADA::point_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By, double* fx, double* fy) {
+	// Find the perpendicular foot F(fx, fy) of Point P(px, py) on Segment AB.
+
+	/** Theorem
+	* In Euclidean Vector Space, the dot product of two vectors is a kind of scalar multiplication
+	* which takes direction into account. Any result of dot products has one of the three geometric
+	* meanings:
+	*   > 0: the two vectors have an acute angle.
+	*   = 0: the two vectors are perpendicular.
+	*   < 0: the two vectors have an obtuse angle.
+	*
+	* This theorem also works when the point and the segment are collinear.
+	*
+	* a). F = A + u(B - A)
+	* b). (P - F)·(B - A) = 0
+	*  ==> [P - A - u(B - A)]·(B - A) = 0
+	*  ==> u = [(px - Ax)(Bx - Ax) + (py - Ay)(By - Ay)] / ||B - A||^2
+	*/
+
+	double u = ((px - Ax) * (Bx - Ax) + (py - Ay) * (By - Ay)) / points_distance(Ax, Ay, Bx, By);
+
+	SET_BOX(fx, Ax + u * (Bx - Ax));
+	SET_BOX(fy, Ay + u * (By - Ay));
+}
+
 bool WarGrey::SCADA::is_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By) {
-	// To test if the foot of Point P(px, py) on Segment AB actually lies on the segment.
+	// Test if the foot of Point P(px, py) on Segment AB actually lies on the segment.
 
 	/** Theorem
 	 * In Euclidean Vector Space, the dot product of two vectors is a kind of scalar multiplication
@@ -195,9 +220,16 @@ bool WarGrey::SCADA::is_foot_on_segment(double px, double py, double Ax, double 
 	 * Thus, the predicate is true when (AP·AB)(BP·BA) >= 0
 	 */
 
-
 	double AP_AB = dot_product(px - Ax, py - Ay, Bx - Ax, By - Ay);
 	double BP_BA = dot_product(px - Bx, py - By, Ax - Bx, Ay - By);
 
 	return (AP_AB * BP_BA) >= 0.0;
+}
+
+double WarGrey::SCADA::point_segment_distance(double px, double py, double Ax, double Ay, double Bx, double By) {
+	double fx, fy;
+
+	point_foot_on_segment(px, py, Ax, Ay, Bx, By, &fx, &fy);
+
+	return points_distance(fx, fy, px, py);
 }
