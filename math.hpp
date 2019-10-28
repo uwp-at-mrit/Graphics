@@ -23,6 +23,11 @@ namespace WarGrey::SCADA {
 	float points_distance(Windows::Foundation::Numerics::float2& pt1, Windows::Foundation::Numerics::float2& pt2);
 	float points_distance(float x1, float y1, float x2, float y2);
 	double points_distance(double x1, double y1, double x2, double y2);
+	
+	void point_rotate(double x, double y, double degrees, double* rx = nullptr, double* ry = nullptr);
+	void point_rotate(double x, double y, float radians, double* rx = nullptr, double* ry = nullptr);
+	void point_rotate(double x, double y, double degrees, double ox, double oy, double* rx = nullptr, double* ry = nullptr);
+	void point_rotate(double x, double y, float radians, double ox, double oy, double* rx = nullptr, double* ry = nullptr);
 
 	double arc_length(float radius, double degrees0, double degreesn);
 

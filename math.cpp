@@ -129,6 +129,28 @@ double WarGrey::SCADA::points_distance(double x1, double y1, double x2, double y
 	return flsqrt(dx * dx + dy * dy);
 }
 
+void WarGrey::SCADA::point_rotate(double x, double y, double degrees, double* rx, double* ry) {
+	point_rotate(x, y, quick_degrees_to_radians(degrees), 0.0, 0.0, rx, ry);
+}
+
+void WarGrey::SCADA::point_rotate(double x, double y, float radians, double* rx, double* ry) {
+	point_rotate(x, y, radians, 0.0, 0.0, rx, ry);
+}
+
+void WarGrey::SCADA::point_rotate(double x, double y, double degrees, double ox, double oy, double* rx, double* ry) {
+	point_rotate(x, y, quick_degrees_to_radians(degrees), ox, oy, rx, ry);
+}
+
+void WarGrey::SCADA::point_rotate(double x, double y, float radians, double ox, double oy, double* rx, double* ry) {
+	float cosr = flcos(radians);
+	float sinr = flsin(radians);
+	double dx = x - ox;
+	double dy = y - oy;
+
+	SET_BOX(rx, dx * cosr - dy * sinr + ox);
+	SET_BOX(ry, dx * sinr + dy * cosr + oy);
+}
+
 double WarGrey::SCADA::arc_length(float r, double deg0, double degn) {
 	double theta = flabs(degn - deg0);
 
