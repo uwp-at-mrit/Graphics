@@ -7,6 +7,7 @@ namespace WarGrey::SCADA {
 	bool rectangle_inside(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2);
 	bool rectangle_overlay(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2);
 	bool rectangle_contain(float tlx, float tly, float brx, float bry, float x, float y);
+	bool rectangle_contain(float tlx, float tly, float brx, float bry, Windows::Foundation::Numerics::float2& pt);
 
 	void region_fuse_point(double* lx, double* ty, double* rx, double* by, double x, double y);
 	void region_fuse_point(Windows::Foundation::Numerics::float2* lt, Windows::Foundation::Numerics::float2* rb, float x, float y);
@@ -22,8 +23,9 @@ namespace WarGrey::SCADA {
 	double points_angle(double x1, double y1, double x2, double y2);
 	float points_distance(Windows::Foundation::Numerics::float2& pt1, Windows::Foundation::Numerics::float2& pt2);
 	float points_distance(float x1, float y1, float x2, float y2);
+	double points_distance_squared(double x1, double y1, double x2, double y2);
 	double points_distance(double x1, double y1, double x2, double y2);
-	
+
 	void point_rotate(double x, double y, double degrees, double* rx = nullptr, double* ry = nullptr);
 	void point_rotate(double x, double y, float radians, double* rx = nullptr, double* ry = nullptr);
 	void point_rotate(double x, double y, double degrees, double ox, double oy, double* rx = nullptr, double* ry = nullptr);
@@ -43,8 +45,13 @@ namespace WarGrey::SCADA {
 	void line_point(float x0, float y0, float x1, float y1, double ratio, float* x, float* y);
 	void line_point(Windows::Foundation::Numerics::float2& pt0, Windows::Foundation::Numerics::float2& pt1, double ratio, float* x, float* y);
 
-	double dot_product(double x1, double y1, double x2, double y2);
+	double dot_product(double ax, double ay, double bx, double by);
 	void point_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By, double* fx, double* fy);
 	bool is_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By);
+	double point_segment_distance_squared(double px, double py, double Ax, double Ay, double Bx, double By);
 	double point_segment_distance(double px, double py, double Ax, double Ay, double Bx, double By);
+	void segment_distance_apart_point(double Ax, double Ay, double Bx, double By, double distance, double* px, double* py);
+
+	double cross_product(double ax, double ay, double bx, double by);
+	void cross_product(double ax, double ay, double az, double bx, double by, double bz, double* x, double* y, double* z);
 }

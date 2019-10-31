@@ -33,6 +33,10 @@ bool WarGrey::SCADA::rectangle_contain(float tlx, float tly, float brx, float br
 	return flin(tlx, x, brx) && flin(tly, y, bry);
 }
 
+bool WarGrey::SCADA::rectangle_contain(float tlx, float tly, float brx, float bry, float2& pt) {
+	return rectangle_contain(tlx, tly, brx, bry, pt.x, pt.y);
+}
+
 void WarGrey::SCADA::region_fuse_point(double* lx, double* ty, double* rx, double* by, double x, double y) {
 	if (lx != nullptr) {
 		(*lx) = flmin(*lx, x);
@@ -122,11 +126,15 @@ float WarGrey::SCADA::points_distance(float x1, float y1, float x2, float y2) {
 	return flsqrt(dx * dx + dy * dy);
 }
 
-double WarGrey::SCADA::points_distance(double x1, double y1, double x2, double y2) {
+double WarGrey::SCADA::points_distance_squared(double x1, double y1, double x2, double y2) {
 	double dx = x2 - x1;
 	double dy = y2 - y1;
 
-	return flsqrt(dx * dx + dy * dy);
+	return (dx * dx + dy * dy);
+}
+
+double WarGrey::SCADA::points_distance(double x1, double y1, double x2, double y2) {
+	return flsqrt(points_distance_squared(x1, y1, x2, y2));
 }
 
 void WarGrey::SCADA::point_rotate(double x, double y, double degrees, double* rx, double* ry) {
@@ -197,12 +205,50 @@ void WarGrey::SCADA::line_point(float2& pt0, float2& pt1, double ratio, float* x
 }
 
 /*************************************************************************************************/
-double WarGrey::SCADA::dot_product(double x1, double y1, double x2, double y2) {
-	return x1 * x2 + y1 * y2;
+double WarGrey::SCADA::dot_product(double ax, double ay, double bx, double by) {
+	return ax * bx + ay * by;
+}
+
+double WarGrey::SCADA::cross_product(double ax, double ay, double bx, double by) {
+	return ax * by - ay * bx; 
+}
+
+void WarGrey::SCADA::cross_product(double ax, double ay, double az, double bx, double by, double bz, double* x, double* y, double* z) {
+	SET_BOX(x, ay * bz - az * by);
+	SET_BOX(y, az * bx - ax * bz);
+	SET_BOX(z, ax * by - ay * bx);
 }
 
 void WarGrey::SCADA::point_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By, double* fx, double* fy) {
 	// Find the perpendicular foot F(fx, fy) of Point P(px, py) on Segment AB.
+
+	/** Theorem
+	 * In Euclidean Vector Space, the dot product of two vectors is a kind of scalar multiplication
+	 * which takes direction into account. Any result of dot products has one of the three geometric
+	 * meanings:
+	 *   > 0: the two vectors have an acute angle.
+	 *   = 0: the two vectors are perpendicular.
+	 *   < 0: the two vectors have an obtuse angle.
+	 *
+	 * This theorem also works when the point and the segment are collinear.
+	 *
+	 * a). F = A + uAB
+	 * b). FP·AB = 0
+	 *  ==> [AP - uAB]·AB = 0
+	 *  ==> u = AP·AB / ‖B - A‖²
+	 */
+
+	double ABx = Bx - Ax;
+	double ABy = By - Ay;
+	double u = dot_product(px - Ax, py - Ay, ABx, ABy) / points_distance_squared(Ax, Ay, Bx, By);
+
+	SET_BOX(fx, Ax + u * ABx);
+	SET_BOX(fy, Ay + u * ABy);
+}
+
+void WarGrey::SCADA::segment_distance_apart_point(double Ax, double Ay, double Bx, double By, double d, double* px, double* py) {
+	// find the point P(px, py) whose foot on the segment is A(Ax, Ay) with distance |d| apart.
+	// P should be on the left side(d > 0.0) or right side(d < 0.0) of the segment.
 
 	/** Theorem
 	* In Euclidean Vector Space, the dot product of two vectors is a kind of scalar multiplication
@@ -212,18 +258,31 @@ void WarGrey::SCADA::point_foot_on_segment(double px, double py, double Ax, doub
 	*   = 0: the two vectors are perpendicular.
 	*   < 0: the two vectors have an obtuse angle.
 	*
-	* This theorem also works when the point and the segment are collinear.
+	* While, the cross product of two vectors in a plane produces a pseudovector whose i and j components are 0s
+	* and whose k component can just be used as the determinant of the constructed Matrix[AP, AB]. Geometrically
+	* speaking, the determinant means signed area in a plane, more precisely:
+	*   > 0: positive area, P is on the left side of segment AB.
+	*   = 0: P lies on segment AB.
+	*   < 0: negative area, P is on the right side of segment AB.
 	*
-	* a). F = A + u(B - A)
-	* b). (P - F)·(B - A) = 0
-	*  ==> [P - A - u(B - A)]·(B - A) = 0
-	*  ==> u = [(px - Ax)(Bx - Ax) + (py - Ay)(By - Ay)] / ||B - A||^2
+	* a). AP·AB = 0
+	* b). ‖AP‖² = d²
+	*  ==> APx = ±d·ABy/‖AB‖
+	*      APy = ∓d·ABx/‖AB‖
+	*      APx = -APy * By / Bx
 	*/
 
-	double u = ((px - Ax) * (Bx - Ax) + (py - Ay) * (By - Ay)) / points_distance(Ax, Ay, Bx, By);
+	double abs_d_div_AB = flabs(d) / points_distance(Ax, Ay, Bx, By);
+	double abs_APx = (By - Ay) * abs_d_div_AB;
+	double abs_APy = (Bx - Ax) * abs_d_div_AB;
 
-	SET_BOX(fx, Ax + u * (Bx - Ax));
-	SET_BOX(fy, Ay + u * (By - Ay));
+	if (d > 0.0) {
+		SET_BOX(px, Ax + abs_APx);
+		SET_BOX(py, Ay - abs_APy);
+	} else {
+		SET_BOX(px, Ax - abs_APx);
+		SET_BOX(py, Ay + abs_APy);
+	}
 }
 
 bool WarGrey::SCADA::is_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By) {
@@ -248,10 +307,14 @@ bool WarGrey::SCADA::is_foot_on_segment(double px, double py, double Ax, double 
 	return (AP_AB * BP_BA) >= 0.0;
 }
 
-double WarGrey::SCADA::point_segment_distance(double px, double py, double Ax, double Ay, double Bx, double By) {
+double WarGrey::SCADA::point_segment_distance_squared(double px, double py, double Ax, double Ay, double Bx, double By) {
 	double fx, fy;
 
 	point_foot_on_segment(px, py, Ax, Ay, Bx, By, &fx, &fy);
 
-	return points_distance(fx, fy, px, py);
+	return points_distance_squared(fx, fy, px, py);
+}
+
+double WarGrey::SCADA::point_segment_distance(double px, double py, double Ax, double Ay, double Bx, double By) {
+	return flsqrt(point_segment_distance_squared(px, py, Ax, Ay, Bx, By));
 }
