@@ -246,9 +246,9 @@ void WarGrey::SCADA::point_foot_on_segment(double px, double py, double Ax, doub
 	SET_BOX(fy, Ay + u * ABy);
 }
 
-void WarGrey::SCADA::segment_distance_apart_point(double Ax, double Ay, double Bx, double By, double d, double* px, double* py) {
-	// find the point P(px, py) whose foot on the segment is A(Ax, Ay) with distance |d| apart.
-	// P should be on the left side(d > 0.0) or right side(d < 0.0) of the segment.
+void WarGrey::SCADA::parallel_segment(double Ax, double Ay, double Bx, double By, double d, double* pAx, double* pAy, double* pBx, double* pBy) {
+	// find the parallel segment pAB which is distance |d| apart from the segment AB, and
+	//   should be on the left side(d > 0.0) or right side(d < 0.0) of the segment.
 
 	/** Theorem
 	* In Euclidean Vector Space, the dot product of two vectors is a kind of scalar multiplication
@@ -265,11 +265,11 @@ void WarGrey::SCADA::segment_distance_apart_point(double Ax, double Ay, double B
 	*   = 0: P lies on segment AB.
 	*   < 0: negative area, P is on the right side of segment AB.
 	*
-	* a). AP·AB = 0
-	* b). ‖AP‖² = d²
-	*  ==> APx = ±d·ABy/‖AB‖
-	*      APy = ∓d·ABx/‖AB‖
-	*      APx = -APy * By / Bx
+	* a). AP·AB = BP·AB = 0
+	* b). ‖AP‖² = ‖BP‖² = d²
+	*  ==> Px = ±d·ABy/‖AB‖
+	*      Py = ∓d·ABx/‖AB‖
+	*      Px = -Py * By / Bx
 	*/
 
 	double abs_d_div_AB = flabs(d) / points_distance(Ax, Ay, Bx, By);
@@ -277,11 +277,15 @@ void WarGrey::SCADA::segment_distance_apart_point(double Ax, double Ay, double B
 	double abs_APy = (Bx - Ax) * abs_d_div_AB;
 
 	if (d > 0.0) {
-		SET_BOX(px, Ax + abs_APx);
-		SET_BOX(py, Ay - abs_APy);
+		SET_BOX(pAx, Ax + abs_APx);
+		SET_BOX(pAy, Ay - abs_APy);
+		SET_BOX(pBx, Bx + abs_APx);
+		SET_BOX(pBy, By - abs_APy);
 	} else {
-		SET_BOX(px, Ax - abs_APx);
-		SET_BOX(py, Ay + abs_APy);
+		SET_BOX(pAx, Ax - abs_APx);
+		SET_BOX(pAy, Ay + abs_APy);
+		SET_BOX(pBx, Bx - abs_APx);
+		SET_BOX(pBy, By + abs_APy);
 	}
 }
 

@@ -50,7 +50,8 @@ namespace WarGrey::SCADA {
 	bool is_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By);
 	double point_segment_distance_squared(double px, double py, double Ax, double Ay, double Bx, double By);
 	double point_segment_distance(double px, double py, double Ax, double Ay, double Bx, double By);
-	void segment_distance_apart_point(double Ax, double Ay, double Bx, double By, double distance, double* px, double* py);
+	void parallel_segment(double Ax, double Ay, double Bx, double By, double distance,
+		double* pAx = nullptr, double* pAy = nullptr, double* pBx = nullptr, double* pBy = nullptr);
 
 	double cross_product(double ax, double ay, double bx, double by);
 	void cross_product(double ax, double ay, double az, double bx, double by, double bz, double* x, double* y, double* z);
