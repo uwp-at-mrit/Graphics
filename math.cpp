@@ -322,3 +322,34 @@ double WarGrey::SCADA::point_segment_distance_squared(double px, double py, doub
 double WarGrey::SCADA::point_segment_distance(double px, double py, double Ax, double Ay, double Bx, double By) {
 	return flsqrt(point_segment_distance_squared(px, py, Ax, Ay, Bx, By));
 }
+
+double WarGrey::SCADA::ray_segment_intersection(double rx1, double ry1, double rx2, double ry2, double sx1, double sy1, double sx2, double sy2, double* px, double* py) {
+	// find the intersection point P(px, py) of ray R((rx1, ry1), (rx2, ry2)) and Segment S((rx3, ry3), (rx4, ry4))
+
+	/** Theorem
+	 * In Euclidean Vector Space, A line can be represented in vector form as L = v0 + tv,
+	 * the parameter `t` can be used to detect the interval of line. More precisely, for `t`:
+	 *   -inf < t < +inf, L is an infinitely long line.
+	 *   0 <= t <= 1, L is a line segment.
+	 *   0 <= t < +inf, L is a ray.
+	 *
+	 * a). L1 = (rx1, ry1) + r(rx2 - rx1, ry2 - ry1)
+	 * b). L2 = (sx1, sy1) + s(sx2 - sx1, sy2 - sx1)
+	 *  ==> r = + [(rx1 - sx1)(sy1 - sy2) - (ry1 - sy1)(sx1 - sx2)] / [(rx1 - rx2)(sy1 - sy2) - (ry1 - ry2)(sx1 - sx2)]
+	 *      s = - [(rx1 - rx2)(ry1 - sy1) - (ry1 - ry2)(rx1 - sx1)] / [(rx1 - rx2)(sy1 - sy2) - (ry1 - ry2)(sx1 - sx2)]
+	 *  ==> P(rx1 + r(rx2 - rx1), ry1 + r(ry2 - ry1)) or
+	 *      P(sx1 + s(sx2 - sx1), sy1 + s(sy2 - sy1))
+	 */
+
+	double denominator = ((rx1 - rx2) * (sy1 - sy2) - (ry1 - ry2) * (sx1 - sx2));
+	double s = flnan;
+
+	if (denominator != 0.0) {
+		s = -((rx1 - rx2) * (ry1 - sy1) - (ry1 - ry2) * (rx1 - sx1)) / denominator;
+
+		SET_BOX(px, sx1 + s * (sx2 - sx1));
+		SET_BOX(py, sy1 + s * (sy2 - sy1));
+	}
+
+	return s;
+}
