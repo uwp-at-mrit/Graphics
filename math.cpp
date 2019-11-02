@@ -323,8 +323,9 @@ double WarGrey::SCADA::point_segment_distance(double px, double py, double Ax, d
 	return flsqrt(point_segment_distance_squared(px, py, Ax, Ay, Bx, By));
 }
 
-double WarGrey::SCADA::ray_segment_intersection(double rx1, double ry1, double rx2, double ry2, double sx1, double sy1, double sx2, double sy2, double* px, double* py) {
-	// find the intersection point P(px, py) of ray R((rx1, ry1), (rx2, ry2)) and Segment S((rx3, ry3), (rx4, ry4))
+bool WarGrey::SCADA::lines_intersection(double x11, double y11, double x12, double y12, double x21, double y21, double x22, double y22
+	, double* px, double* py, double* t1, double* t2) {
+	// find the intersection point P(px, py) of L1((x11, y11), (x12, y12)) and L2((x21, y21), (x22, y22))
 
 	/** Theorem
 	 * In Euclidean Vector Space, A line can be represented in vector form as L = v0 + tv,
@@ -333,23 +334,27 @@ double WarGrey::SCADA::ray_segment_intersection(double rx1, double ry1, double r
 	 *   0 <= t <= 1, L is a line segment.
 	 *   0 <= t < +inf, L is a ray.
 	 *
-	 * a). L1 = (rx1, ry1) + r(rx2 - rx1, ry2 - ry1)
-	 * b). L2 = (sx1, sy1) + s(sx2 - sx1, sy2 - sx1)
-	 *  ==> r = + [(rx1 - sx1)(sy1 - sy2) - (ry1 - sy1)(sx1 - sx2)] / [(rx1 - rx2)(sy1 - sy2) - (ry1 - ry2)(sx1 - sx2)]
-	 *      s = - [(rx1 - rx2)(ry1 - sy1) - (ry1 - ry2)(rx1 - sx1)] / [(rx1 - rx2)(sy1 - sy2) - (ry1 - ry2)(sx1 - sx2)]
-	 *  ==> P(rx1 + r(rx2 - rx1), ry1 + r(ry2 - ry1)) or
-	 *      P(sx1 + s(sx2 - sx1), sy1 + s(sy2 - sy1))
+	 * a). L1 = (x11, y11) + t1(x12 - x11, y12 - y11)
+	 * b). L2 = (x21, y21) + t2(x22 - x21, y22 - x21)
+	 *  ==> t1 = + [(x11 - x21)(y21 - y22) - (y11 - y21)(x21 - x22)] / [(x11 - x12)(y21 - y22) - (y11 - y12)(x21 - x22)]
+	 *      t2 = - [(x11 - x12)(y11 - y21) - (y11 - y12)(x11 - x21)] / [(x11 - x12)(y21 - y22) - (y11 - y12)(x21 - x22)]
+	 *  ==> P(x11 + t1(x12 - x11), y11 + t1(y12 - y11)) or
+	 *      P(x21 + t2(x22 - x21), y21 + t2(y22 - y21))
 	 */
 
-	double denominator = ((rx1 - rx2) * (sy1 - sy2) - (ry1 - ry2) * (sx1 - sx2));
-	double s = flnan;
+	double denominator = ((x11 - x12) * (y21 - y22) - (y11 - y12) * (x21 - x22));
+	bool intersected = (denominator != 0.0);
 
-	if (denominator != 0.0) {
-		s = -((rx1 - rx2) * (ry1 - sy1) - (ry1 - ry2) * (rx1 - sx1)) / denominator;
+	if (intersected) {
+		double T1 = +((x11 - x21) * (y21 - y22) - (y11 - y21) * (x21 - x22)) / denominator;
+		double T2 = -((x11 - x12) * (y11 - y21) - (y11 - y12) * (x11 - x21)) / denominator;
 
-		SET_BOX(px, sx1 + s * (sx2 - sx1));
-		SET_BOX(py, sy1 + s * (sy2 - sy1));
+		// WARNING: client applications should check the flonum relevant errors when two lines are almost parallel 
+
+		SET_VALUES(t1, T1, t2, T2);
+		SET_BOX(px, x21 + T2 * (x22 - x21));
+		SET_BOX(py, y21 + T2 * (y22 - y21));
 	}
 
-	return s;
+	return intersected;
 }

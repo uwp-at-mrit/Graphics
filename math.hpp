@@ -56,5 +56,6 @@ namespace WarGrey::SCADA {
 	double cross_product(double ax, double ay, double bx, double by);
 	void cross_product(double ax, double ay, double az, double bx, double by, double bz, double* x, double* y, double* z);
 
-	double ray_segment_intersection(double rx1, double ry1, double rx2, double ry2, double sx1, double sy1, double sx2, double sy2, double* px, double* py);
+	bool lines_intersection(double x11, double y11, double x12, double y12, double x21, double y21, double x22, double y22,
+		double* px, double* py, double* t1 = nullptr, double* t2 = nullptr);
 }
