@@ -246,9 +246,9 @@ void WarGrey::SCADA::point_foot_on_segment(double px, double py, double Ax, doub
 	SET_BOX(fy, Ay + u * ABy);
 }
 
-void WarGrey::SCADA::parallel_segment(double Ax, double Ay, double Bx, double By, double d, double* pAx, double* pAy, double* pBx, double* pBy) {
-	// find the parallel segment pAB which is distance |d| apart from the segment AB, and
-	//   should be on the left side(d > 0.0) or right side(d < 0.0) of the segment.
+void WarGrey::SCADA::line_normal0_vector(double Ax, double Ay, double Bx, double By, double d, double* nvx, double* nvy, double ox, double oy) {
+	// find the |d|-length normal vectors of line AB, the vector should be on the left side(d > 0.0) or right side(d < 0.0) of the segment
+	// NOTE: the resulting vector is located at O(ox, oy).
 
 	/** Theorem
 	* In Euclidean Vector Space, the dot product of two vectors is a kind of scalar multiplication
@@ -277,16 +277,26 @@ void WarGrey::SCADA::parallel_segment(double Ax, double Ay, double Bx, double By
 	double abs_APy = (Bx - Ax) * abs_d_div_AB;
 
 	if (d > 0.0) {
-		SET_BOX(pAx, Ax + abs_APx);
-		SET_BOX(pAy, Ay - abs_APy);
-		SET_BOX(pBx, Bx + abs_APx);
-		SET_BOX(pBy, By - abs_APy);
+		SET_BOX(nvx, ox + abs_APx);
+		SET_BOX(nvy, oy - abs_APy);
 	} else {
-		SET_BOX(pAx, Ax - abs_APx);
-		SET_BOX(pAy, Ay + abs_APy);
-		SET_BOX(pBx, Bx - abs_APx);
-		SET_BOX(pBy, By + abs_APy);
+		SET_BOX(nvx, ox - abs_APx);
+		SET_BOX(nvy, oy + abs_APy);
 	}
+}
+
+void WarGrey::SCADA::parallel_segment(double Ax, double Ay, double Bx, double By, double d, double* pAx, double* pAy, double* pBx, double* pBy) {
+	double norm_x, norm_y;
+
+	// find the parallel segment pAB which is distance |d| apart from the segment AB, and
+	//   should be on the left side(d > 0.0) or right side(d < 0.0) of the segment.
+
+	line_normal0_vector(Ax, Ay, Bx, By, d, &norm_x, &norm_y);
+
+	SET_BOX(pAx, Ax + norm_x);
+	SET_BOX(pAy, Ay + norm_y);
+	SET_BOX(pBx, Bx + norm_x);
+	SET_BOX(pBy, By + norm_y);
 }
 
 bool WarGrey::SCADA::is_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By) {
@@ -343,13 +353,11 @@ bool WarGrey::SCADA::lines_intersection(double x11, double y11, double x12, doub
 	 */
 
 	double denominator = ((x11 - x12) * (y21 - y22) - (y11 - y12) * (x21 - x22));
-	bool intersected = (denominator != 0.0);
+	bool intersected = (denominator != 0.0); // WARNING: client applications should check the flonum relevant errors when two lines are almost parallel
 
 	if (intersected) {
 		double T1 = +((x11 - x21) * (y21 - y22) - (y11 - y21) * (x21 - x22)) / denominator;
 		double T2 = -((x11 - x12) * (y11 - y21) - (y11 - y12) * (x11 - x21)) / denominator;
-
-		// WARNING: client applications should check the flonum relevant errors when two lines are almost parallel 
 
 		SET_VALUES(t1, T1, t2, T2);
 		SET_BOX(px, x21 + T2 * (x22 - x21));

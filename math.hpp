@@ -46,15 +46,17 @@ namespace WarGrey::SCADA {
 	void line_point(Windows::Foundation::Numerics::float2& pt0, Windows::Foundation::Numerics::float2& pt1, double ratio, float* x, float* y);
 
 	double dot_product(double ax, double ay, double bx, double by);
+	double cross_product(double ax, double ay, double bx, double by);
+	void cross_product(double ax, double ay, double az, double bx, double by, double bz, double* x, double* y, double* z);
+
 	void point_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By, double* fx, double* fy);
 	bool is_foot_on_segment(double px, double py, double Ax, double Ay, double Bx, double By);
 	double point_segment_distance_squared(double px, double py, double Ax, double Ay, double Bx, double By);
 	double point_segment_distance(double px, double py, double Ax, double Ay, double Bx, double By);
+
+	void line_normal0_vector(double Ax, double Ay, double Bx, double By, double distance, double* nvx = nullptr, double* nvy = nullptr, double ox = 0.0, double oy = 0.0);
 	void parallel_segment(double Ax, double Ay, double Bx, double By, double distance,
 		double* pAx = nullptr, double* pAy = nullptr, double* pBx = nullptr, double* pBy = nullptr);
-
-	double cross_product(double ax, double ay, double bx, double by);
-	void cross_product(double ax, double ay, double az, double bx, double by, double bz, double* x, double* y, double* z);
 
 	bool lines_intersection(double x11, double y11, double x12, double y12, double x21, double y21, double x22, double y22,
 		double* px, double* py, double* t1 = nullptr, double* t2 = nullptr);
