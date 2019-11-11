@@ -119,11 +119,15 @@ float WarGrey::SCADA::points_distance(float2& pt1, float2& pt2) {
 	return points_distance(pt1.x, pt1.y, pt2.x, pt2.y);
 }
 
-float WarGrey::SCADA::points_distance(float x1, float y1, float x2, float y2) {
+float WarGrey::SCADA::points_distance_squared(float x1, float y1, float x2, float y2) {
 	float dx = x2 - x1;
 	float dy = y2 - y1;
 
-	return flsqrt(dx * dx + dy * dy);
+	return (dx * dx + dy * dy);
+}
+
+float WarGrey::SCADA::points_distance(float x1, float y1, float x2, float y2) {
+	return flsqrt(points_distance_squared(x1, y1, x2, y2));
 }
 
 double WarGrey::SCADA::points_distance_squared(double x1, double y1, double x2, double y2) {

@@ -22,6 +22,7 @@ namespace WarGrey::SCADA {
 	double points_angle(float x1, float y1, float x2, float y2);
 	double points_angle(double x1, double y1, double x2, double y2);
 	float points_distance(Windows::Foundation::Numerics::float2& pt1, Windows::Foundation::Numerics::float2& pt2);
+	float points_distance_squared(float x1, float y1, float x2, float y2);
 	float points_distance(float x1, float y1, float x2, float y2);
 	double points_distance_squared(double x1, double y1, double x2, double y2);
 	double points_distance(double x1, double y1, double x2, double y2);
