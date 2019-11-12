@@ -37,6 +37,13 @@ bool WarGrey::SCADA::rectangle_contain(float tlx, float tly, float brx, float br
 	return rectangle_contain(tlx, tly, brx, bry, pt.x, pt.y);
 }
 
+void WarGrey::SCADA::region_fuse_reset(float2* lt, float2* rb) {
+	lt->x = +infinity_f;
+	lt->y = +infinity_f;
+	rb->x = -infinity_f;
+	rb->y = -infinity_f;
+}
+
 void WarGrey::SCADA::region_fuse_point(double* lx, double* ty, double* rx, double* by, double x, double y) {
 	if (lx != nullptr) {
 		(*lx) = flmin(*lx, x);
@@ -209,6 +216,10 @@ void WarGrey::SCADA::line_point(float2& pt0, float2& pt1, double ratio, float* x
 }
 
 /*************************************************************************************************/
+float WarGrey::SCADA::dot_product(float ax, float ay, float bx, float by) {
+	return ax * bx + ay * by;
+}
+
 double WarGrey::SCADA::dot_product(double ax, double ay, double bx, double by) {
 	return ax * bx + ay * by;
 }

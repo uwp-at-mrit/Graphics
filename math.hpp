@@ -9,6 +9,7 @@ namespace WarGrey::SCADA {
 	bool rectangle_contain(float tlx, float tly, float brx, float bry, float x, float y);
 	bool rectangle_contain(float tlx, float tly, float brx, float bry, Windows::Foundation::Numerics::float2& pt);
 
+	void region_fuse_reset(Windows::Foundation::Numerics::float2* lt, Windows::Foundation::Numerics::float2* rb);
 	void region_fuse_point(double* lx, double* ty, double* rx, double* by, double x, double y);
 	void region_fuse_point(Windows::Foundation::Numerics::float2* lt, Windows::Foundation::Numerics::float2* rb, float x, float y);
 	void region_fuse_point(float* lx, float* ty, float* rx, float* by, float x, float y);
@@ -46,6 +47,7 @@ namespace WarGrey::SCADA {
 	void line_point(float x0, float y0, float x1, float y1, double ratio, float* x, float* y);
 	void line_point(Windows::Foundation::Numerics::float2& pt0, Windows::Foundation::Numerics::float2& pt1, double ratio, float* x, float* y);
 
+	float dot_product(float ax, float ay, float bx, float by);
 	double dot_product(double ax, double ay, double bx, double by);
 	double cross_product(double ax, double ay, double bx, double by);
 	void cross_product(double ax, double ay, double az, double bx, double by, double bz, double* x, double* y, double* z);
