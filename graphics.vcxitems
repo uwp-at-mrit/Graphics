@@ -20,7 +20,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)cs\wgs_xy.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)palette\x11.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)palette\xterm256.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)draw.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)geometry.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)measure\hhatchmark.cpp" />
@@ -52,7 +51,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)polar.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)shape.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)shape3d.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)test\colorspace_convertion.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)text.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)transformation.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)turtle.hpp" />
