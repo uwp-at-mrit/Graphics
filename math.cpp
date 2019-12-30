@@ -21,6 +21,14 @@ float WarGrey::SCADA::viewport_fit_scaling(float src_width, float src_height, fl
 	return flmin(src_width / target_width, src_height / target_height);
 }
 
+float WarGrey::SCADA::triangle_angle(float opposite_length, float b, float c) {
+	return flacos((flsqr(b) + flsqr(c) - flsqr(opposite_length)) / (2.0F * b * c));
+}
+
+double WarGrey::SCADA::triangle_angle(double opposite_length, double b, double c) {
+	return flacos((flsqr(b) + flsqr(c) - flsqr(opposite_length)) / (2.0 * b * c));
+}
+
 bool WarGrey::SCADA::rectangle_inside(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2) {
 	return flin(tlx2, tlx1, brx2) && flin(tlx2, brx1, brx2) && (flin(tly2, tly1, bry2) && flin(tly2, bry1, bry2));
 }

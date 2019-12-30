@@ -4,6 +4,9 @@ namespace WarGrey::SCADA {
 	float viewport_fit_scaling(Windows::Foundation::Size& src_size, float target_width, float target_height);
 	float viewport_fit_scaling(float src_width, float src_height, float target_width, float target_height);
 
+	float triangle_angle(float opposite_length, float b, float c);
+	double triangle_angle(double opposite_length, double b, double c);
+
 	bool rectangle_inside(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2);
 	bool rectangle_overlay(float tlx1, float tly1, float brx1, float bry1, float tlx2, float tly2, float brx2, float bry2);
 	bool rectangle_contain(float tlx, float tly, float brx, float bry, float x, float y);
