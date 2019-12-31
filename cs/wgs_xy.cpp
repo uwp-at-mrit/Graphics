@@ -4,13 +4,14 @@
 #include "syslog.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::DTPM;
 
 // B: Beta,   latitude
 // L: Lambda, longitude
 // H: Height, altitude
 
 /*************************************************************************************************/
-double WarGrey::SCADA::gps_degmm_to_degrees(double DDmm_mm) {
+double WarGrey::DTPM::gps_degmm_to_degrees(double DDmm_mm) {
 	double abs_dms = flabs(DDmm_mm);
 	double deg = flfloor(abs_dms / 100.0);
 	double min = abs_dms - deg * 100.0;
@@ -19,11 +20,11 @@ double WarGrey::SCADA::gps_degmm_to_degrees(double DDmm_mm) {
 	return ((DDmm_mm >= 0.0) ? degrees : -degrees);
 }
 
-double WarGrey::SCADA::gps_degmm_to_radians(double DDmm_mm) {
+double WarGrey::DTPM::gps_degmm_to_radians(double DDmm_mm) {
 	return gps_degmm_to_degrees(DDmm_mm) * pi / 180.0;
 }
 
-double3 WarGrey::SCADA::GPS_to_XYZ(double B, double L, double H, GCSParameter& info) {
+double3 WarGrey::DTPM::GPS_to_XYZ(double B, double L, double H, GCSParameter& info) {
 	double3 ecefx = WGS84BLH_to_ECEFXYZ(gps_degmm_to_radians(B), gps_degmm_to_radians(L), H, info);
 	double3 bj54x = ECEFXYZ_to_BEJ54XYZ(ecefx.x, ecefx.y, ecefx.z, info);
 	double3 bj54b = BEJ54XYZ_to_BEJ54BLH(bj54x.x, bj54x.y, bj54x.z, info);
@@ -34,14 +35,14 @@ double3 WarGrey::SCADA::GPS_to_XYZ(double B, double L, double H, GCSParameter& i
 	return gauss;
 }
 
-double2 WarGrey::SCADA::GPS_to_XY(double B, double L, double H, GCSParameter& info) {
+double2 WarGrey::DTPM::GPS_to_XY(double B, double L, double H, GCSParameter& info) {
 	double3 local = GPS_to_XYZ(B, L, H, info);
 
 	return double2(local.x, local.y);
 }
 
 /*************************************************************************************************/
-double3 WarGrey::SCADA::WGS84BLH_to_ECEFXYZ(double B, double L, double H, GCSParameter& info) {
+double3 WarGrey::DTPM::WGS84BLH_to_ECEFXYZ(double B, double L, double H, GCSParameter& info) {
 	double e = 0.00669437999013;
 	double sinB = flsin(B);
 	double cosB = flcos(B);
@@ -53,7 +54,7 @@ double3 WarGrey::SCADA::WGS84BLH_to_ECEFXYZ(double B, double L, double H, GCSPar
 	return double3(X, Y, Z);
 }
 
-double3 WarGrey::SCADA::ECEFXYZ_to_BEJ54XYZ(double X, double Y, double Z, GCSParameter& info) {
+double3 WarGrey::DTPM::ECEFXYZ_to_BEJ54XYZ(double X, double Y, double Z, GCSParameter& info) {
 	double c = 0.0000048481368;
 	double bj54_rx = c * info.cs_rx;
 	double bj54_ry = c * info.cs_ry;
@@ -65,7 +66,7 @@ double3 WarGrey::SCADA::ECEFXYZ_to_BEJ54XYZ(double X, double Y, double Z, GCSPar
 	return double3(x, y, z);
 }
 
-double3 WarGrey::SCADA::BEJ54XYZ_to_BEJ54BLH(double X, double Y, double Z, GCSParameter& info) {
+double3 WarGrey::DTPM::BEJ54XYZ_to_BEJ54BLH(double X, double Y, double Z, GCSParameter& info) {
 	double a = info.a;
 	double b = a - 1.0 / info.f * a;
 	double e = (a * a - b * b) / (a * a);
@@ -92,7 +93,7 @@ double3 WarGrey::SCADA::BEJ54XYZ_to_BEJ54BLH(double X, double Y, double Z, GCSPa
 	return double3(B, L, R / flcos(B) - N);
 }
 
-double3 WarGrey::SCADA::BEJ54BLH_to_GAUSSXYH(double B, double L, double H, WarGrey::SCADA::GCSParameter& info) {
+double3 WarGrey::DTPM::BEJ54BLH_to_GAUSSXYH(double B, double L, double H, GCSParameter& info) {
 	double cs_a54 = info.a;
 	double a = info.a;
 	double b = info.a - 1.0 / info.f * info.a;
