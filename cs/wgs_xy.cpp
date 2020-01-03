@@ -12,9 +12,9 @@ using namespace WarGrey::DTPM;
 
 /*************************************************************************************************/
 double WarGrey::DTPM::gps_degmm_to_degrees(double DDmm_mm) {
-	double abs_dms = flabs(DDmm_mm);
-	double deg = flfloor(abs_dms / 100.0);
-	double min = abs_dms - deg * 100.0;
+	double abs_dmm = flabs(DDmm_mm);
+	double deg = flfloor(abs_dmm / 100.0);
+	double min = abs_dmm - deg * 100.0;
 	double degrees = deg + min / 60.0;
 
 	return ((DDmm_mm >= 0.0) ? degrees : -degrees);
