@@ -2,8 +2,8 @@
 
 #include "palette.hpp"
 
-namespace WarGrey::SCADA {
-	private class Xterm256Palette : public WarGrey::SCADA::IPalette {
+namespace WarGrey::DTPM {
+	private class Xterm256Palette : public WarGrey::DTPM::IPalette {
 	public:
 		static Xterm256Palette* instance();
 	

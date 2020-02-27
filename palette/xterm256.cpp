@@ -1,5 +1,6 @@
 #include "palette/xterm256.hpp"
 
+using namespace WarGrey::DTPM;
 using namespace WarGrey::SCADA;
 
 using namespace Microsoft::Graphics::Canvas::Brushes;

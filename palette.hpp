@@ -2,7 +2,7 @@
 
 #include "brushes.hxx"
 
-namespace WarGrey::SCADA {
+namespace WarGrey::DTPM {
 	private enum class Palette : unsigned int {
 		X11, Xterm256
 	};

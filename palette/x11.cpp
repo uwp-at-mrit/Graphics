@@ -1,5 +1,6 @@
 #include "palette/x11.hpp"
 
+using namespace WarGrey::DTPM;
 using namespace WarGrey::SCADA;
 
 using namespace Microsoft::Graphics::Canvas::Brushes;

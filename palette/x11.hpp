@@ -2,8 +2,8 @@
 
 #include "palette.hpp"
 
-namespace WarGrey::SCADA {
-	private class X11Palette : public WarGrey::SCADA::IPalette {
+namespace WarGrey::DTPM {
+	private class X11Palette : public WarGrey::DTPM::IPalette {
 	public:
 		static X11Palette* instance();
 
