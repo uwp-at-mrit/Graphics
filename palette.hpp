@@ -13,5 +13,8 @@ namespace WarGrey::DTPM {
 		virtual unsigned int capacity() = 0;
 		virtual Microsoft::Graphics::Canvas::Brushes::CanvasSolidColorBrush^ color_ref(unsigned int i,
 			Microsoft::Graphics::Canvas::Brushes::CanvasSolidColorBrush^ fallback_color = WarGrey::SCADA::Colours::Foreground) = 0;
+
+	public:
+		virtual void suggested_cell_layout(unsigned int* column, unsigned int* row) = 0;
 	};
 }

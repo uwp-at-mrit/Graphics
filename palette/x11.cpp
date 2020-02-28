@@ -1,5 +1,7 @@
 #include "palette/x11.hpp"
 
+#include "datum/box.hpp"
+
 using namespace WarGrey::DTPM;
 using namespace WarGrey::SCADA;
 
@@ -22,6 +24,11 @@ Platform::String^ X11Palette::name() {
 
 unsigned int X11Palette::capacity() {
 	return 143U;
+}
+
+void X11Palette::suggested_cell_layout(unsigned int* column, unsigned int* row) {
+	SET_BOX(column, 8U);
+	SET_BOX(row, 18U);
 }
 
 CanvasSolidColorBrush^ X11Palette::color_ref(unsigned int idx, CanvasSolidColorBrush^ fallback_color) {

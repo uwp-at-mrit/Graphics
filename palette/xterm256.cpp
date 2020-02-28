@@ -1,5 +1,7 @@
 #include "palette/xterm256.hpp"
 
+#include "datum/box.hpp"
+
 using namespace WarGrey::DTPM;
 using namespace WarGrey::SCADA;
 
@@ -18,6 +20,19 @@ Xterm256Palette* Xterm256Palette::instance() {
 
 Platform::String^ Xterm256Palette::name() {
 	return "Xterm256 Palette";
+}
+
+unsigned int Xterm256Palette::capacity() {
+	return 256U;
+}
+
+void Xterm256Palette::suggested_cell_layout(unsigned int* column, unsigned int* row) {
+	SET_BOX(column, 16U);
+	SET_BOX(row, 16U);
+}
+
+CanvasSolidColorBrush^ Xterm256Palette::color_ref(unsigned int idx, CanvasSolidColorBrush^ fallback_color) {
+	return ((idx < 256U) ? xterms[idx] : fallback_color);
 }
 
 Xterm256Palette::Xterm256Palette() {
@@ -277,12 +292,4 @@ Xterm256Palette::Xterm256Palette() {
 	this->xterms[253] = Colours::make(0xdadada);
 	this->xterms[254] = Colours::make(0xe4e4e4);
 	this->xterms[255] = Colours::make(0xeeeeee);
-}
-
-unsigned int Xterm256Palette::capacity() {
-	return 256U;
-}
-
-CanvasSolidColorBrush^ Xterm256Palette::color_ref(unsigned int idx, CanvasSolidColorBrush^ fallback_color) {
-	return ((idx < 256U) ? xterms[idx] : fallback_color);
 }
