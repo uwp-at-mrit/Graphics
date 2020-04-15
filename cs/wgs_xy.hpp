@@ -27,8 +27,11 @@ namespace WarGrey::DTPM {
 	double gps_degmm_to_degrees(double DDmm_mm);
 	double gps_degmm_to_radians(double DDmm_mm);
 
-	WarGrey::SCADA::double3 GPS_to_XYZ(double latitude, double longitude, double altitude, WarGrey::DTPM::GCSParameter& gcs);
-	WarGrey::SCADA::double2 GPS_to_XY(double latitude, double longitude, double altitude, WarGrey::DTPM::GCSParameter& gcs);
+	WarGrey::SCADA::double3 Degrees_to_XYZ(double latitude, double longitude, double altitude, WarGrey::DTPM::GCSParameter& gcs);
+	WarGrey::SCADA::double2 Degrees_to_XY(double latitude, double longitude, double altitude, WarGrey::DTPM::GCSParameter& gcs);
+
+	WarGrey::SCADA::double3 DDmm_mm_to_XYZ(double latitude, double longitude, double altitude, WarGrey::DTPM::GCSParameter& gcs);
+	WarGrey::SCADA::double2 DDmm_mm_to_XY(double latitude, double longitude, double altitude, WarGrey::DTPM::GCSParameter& gcs);
 
 	// ECEF: Earth Centered Earth Fixed
 	WarGrey::SCADA::double3 WGS84BLH_to_ECEFXYZ(double latitude, double longitude, double altitude, WarGrey::DTPM::GCSParameter& gcs);

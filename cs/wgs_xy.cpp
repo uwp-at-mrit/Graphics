@@ -24,8 +24,8 @@ double WarGrey::DTPM::gps_degmm_to_radians(double DDmm_mm) {
 	return gps_degmm_to_degrees(DDmm_mm) * pi / 180.0;
 }
 
-double3 WarGrey::DTPM::GPS_to_XYZ(double B, double L, double H, GCSParameter& info) {
-	double3 ecefx = WGS84BLH_to_ECEFXYZ(gps_degmm_to_radians(B), gps_degmm_to_radians(L), H, info);
+double3 WarGrey::DTPM::Degrees_to_XYZ(double B, double L, double H, GCSParameter& info) {
+	double3 ecefx = WGS84BLH_to_ECEFXYZ(B, L, H, info);
 	double3 bj54x = ECEFXYZ_to_BEJ54XYZ(ecefx.x, ecefx.y, ecefx.z, info);
 	double3 bj54b = BEJ54XYZ_to_BEJ54BLH(bj54x.x, bj54x.y, bj54x.z, info);
 	double3 gauss = BEJ54BLH_to_GAUSSXYH(bj54b.x, bj54b.y, bj54b.z, info);
@@ -35,8 +35,18 @@ double3 WarGrey::DTPM::GPS_to_XYZ(double B, double L, double H, GCSParameter& in
 	return gauss;
 }
 
-double2 WarGrey::DTPM::GPS_to_XY(double B, double L, double H, GCSParameter& info) {
-	double3 local = GPS_to_XYZ(B, L, H, info);
+double3 WarGrey::DTPM::DDmm_mm_to_XYZ(double B, double L, double H, GCSParameter& info) {
+	return Degrees_to_XYZ(gps_degmm_to_radians(B), gps_degmm_to_radians(L), H, info);
+}
+
+double2 WarGrey::DTPM::Degrees_to_XY(double B, double L, double H, GCSParameter& info) {
+	double3 local = Degrees_to_XYZ(B, L, H, info);
+
+	return double2(local.x, local.y);
+}
+
+double2 WarGrey::DTPM::DDmm_mm_to_XY(double B, double L, double H, GCSParameter& info) {
+	double3 local = DDmm_mm_to_XYZ(B, L, H, info);
 
 	return double2(local.x, local.y);
 }
