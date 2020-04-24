@@ -34,7 +34,7 @@ namespace WarGrey::DTPM {
 	WarGrey::SCADA::double2 DDmm_mm_to_XY(double latitude, double longitude, double altitude, WarGrey::DTPM::GCSParameter& gcs);
 
 	// ECEF: Earth Centered Earth Fixed
-	WarGrey::SCADA::double3 WGS84BLH_to_ECEFXYZ(double latitude, double longitude, double altitude, WarGrey::DTPM::GCSParameter& gcs);
+	WarGrey::SCADA::double3 WGS84BLH_to_ECEFXYZ(double latitude_rad, double longitude_rad, double altitude_rad, WarGrey::DTPM::GCSParameter& gcs);
 	WarGrey::SCADA::double3 ECEFXYZ_to_BEJ54XYZ(double x, double y, double z, WarGrey::DTPM::GCSParameter& gcs);
 	WarGrey::SCADA::double3 BEJ54XYZ_to_BEJ54BLH(double x, double y, double z, WarGrey::DTPM::GCSParameter& gcs);
 	WarGrey::SCADA::double3 BEJ54BLH_to_GAUSSXYH(double b, double l, double h, WarGrey::DTPM::GCSParameter& gcs);

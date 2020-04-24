@@ -1,7 +1,6 @@
 #include "cs/wgs_xy.hpp"
 
 #include "datum/time.hpp"
-#include "syslog.hpp"
 
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
@@ -9,6 +8,22 @@ using namespace WarGrey::DTPM;
 // B: Beta,   latitude
 // L: Lambda, longitude
 // H: Height, altitude
+
+/*************************************************************************************************/
+static inline double degrees_to_radians(double degrees) {
+	return degrees * pi / 180.0;
+}
+
+static inline double3 radians_to_xyz(double B, double L, double H, GCSParameter& info) {
+	double3 ecefx = WGS84BLH_to_ECEFXYZ(B, L, H, info);
+	double3 bj54x = ECEFXYZ_to_BEJ54XYZ(ecefx.x, ecefx.y, ecefx.z, info);
+	double3 bj54b = BEJ54XYZ_to_BEJ54BLH(bj54x.x, bj54x.y, bj54x.z, info);
+	double3 gauss = BEJ54BLH_to_GAUSSXYH(bj54b.x, bj54b.y, bj54b.z, info);
+
+	// TODO: local rotation
+
+	return gauss;
+}
 
 /*************************************************************************************************/
 double WarGrey::DTPM::gps_degmm_to_degrees(double DDmm_mm) {
@@ -21,22 +36,15 @@ double WarGrey::DTPM::gps_degmm_to_degrees(double DDmm_mm) {
 }
 
 double WarGrey::DTPM::gps_degmm_to_radians(double DDmm_mm) {
-	return gps_degmm_to_degrees(DDmm_mm) * pi / 180.0;
+	return degrees_to_radians(gps_degmm_to_degrees(DDmm_mm));
 }
 
 double3 WarGrey::DTPM::Degrees_to_XYZ(double B, double L, double H, GCSParameter& info) {
-	double3 ecefx = WGS84BLH_to_ECEFXYZ(B, L, H, info);
-	double3 bj54x = ECEFXYZ_to_BEJ54XYZ(ecefx.x, ecefx.y, ecefx.z, info);
-	double3 bj54b = BEJ54XYZ_to_BEJ54BLH(bj54x.x, bj54x.y, bj54x.z, info);
-	double3 gauss = BEJ54BLH_to_GAUSSXYH(bj54b.x, bj54b.y, bj54b.z, info);
-
-	// TODO: local rotation
-
-	return gauss;
+	return radians_to_xyz(degrees_to_radians(B), degrees_to_radians(L), H, info);
 }
 
 double3 WarGrey::DTPM::DDmm_mm_to_XYZ(double B, double L, double H, GCSParameter& info) {
-	return Degrees_to_XYZ(gps_degmm_to_radians(B), gps_degmm_to_radians(L), H, info);
+	return radians_to_xyz(gps_degmm_to_radians(B), gps_degmm_to_radians(L), H, info);
 }
 
 double2 WarGrey::DTPM::Degrees_to_XY(double B, double L, double H, GCSParameter& info) {
