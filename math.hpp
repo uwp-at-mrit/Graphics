@@ -66,4 +66,7 @@ namespace WarGrey::SCADA {
 
 	bool lines_intersection(double x11, double y11, double x12, double y12, double x21, double y21, double x22, double y22,
 		double* px, double* py, double* t1 = nullptr, double* t2 = nullptr);
+
+	void dot_unit_vector(double px, double py, double degrees, double* ux, double* uy);
+	void dot_unit_vector(double px, double py, float radians, double* ux, double *uy);
 }

@@ -389,3 +389,16 @@ bool WarGrey::SCADA::lines_intersection(double x11, double y11, double x12, doub
 
 	return intersected;
 }
+
+void WarGrey::SCADA::dot_unit_vector(double px, double py, double degrees, double* ux, double* uy) {
+	dot_unit_vector(px, py, quick_degrees_to_radians(degrees), ux, uy);
+}
+
+void WarGrey::SCADA::dot_unit_vector(double px, double py, float radians, double* ux, double* uy) {
+	float ox, oy;
+
+	circle_point(60.0F, radians, &ox, &oy);
+
+	SET_BOX(ux, ox + px);
+	SET_BOX(uy, oy + py);
+}
